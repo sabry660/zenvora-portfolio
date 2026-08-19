@@ -5,7 +5,7 @@ import { InfoCard, InfoDl, InfoLink } from '@/components/info-page-shell'
 import { SiteFooter } from '@/components/site-footer'
 import { useState } from 'react'
 
-const WHATSAPP_NUMBER = '01550193699'
+const WHATSAPP_NUMBER = '201550193699'
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({

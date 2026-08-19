@@ -12,7 +12,7 @@ import { TechStackMarquee } from '../components/tech-stack-marquee'
 import { HeroCodeAnimation } from '../components/hero-code-animation'
 import { usePWAInstall } from '../hooks/use-pwa-install'
 
-const WHATSAPP_NUMBER = '01550193699'
+const WHATSAPP_NUMBER = '201550193699'
 
 const copy = {
   navHome: 'Home',
