@@ -193,7 +193,7 @@ export function PortfolioCarousel() {
                 key={project.id}
                 className="min-w-full p-4 sm:p-6 md:p-8"
               >
-                <div className="relative h-[300px] sm:h-[350px] md:h-[400px] rounded-xl border border-white/10 bg-[#1a1b1b] overflow-hidden">
+                <div className="relative h-[350px] sm:h-[400px] md:h-[450px] rounded-xl border border-white/10 bg-[#1a1b1b] overflow-hidden">
                   <div className="absolute inset-0 bg-gradient-to-t from-[#1a1b1b] via-transparent to-transparent z-10" />
                   <img
                     src={project.image}
@@ -220,7 +220,7 @@ export function PortfolioCarousel() {
           </div>
 
           {/* Navigation Dots */}
-          <div className="absolute bottom-4 left-0 right-0 flex items-center justify-center gap-3 z-40">
+          <div className="absolute bottom-4 left-0 right-0 hidden md:flex items-center justify-center gap-3 z-40">
             {projects.map((_, index) => (
               <button
                 key={index}
