@@ -1,10 +1,53 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState, useCallback } from 'react'
 
 export function TechStackMarquee() {
   const [isPaused, setIsPaused] = useState(false)
+  const [isDragging, setIsDragging] = useState(false)
   const marqueeRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const animationRef = useRef<number>(0)
+  const positionRef = useRef(0)
+  const dragStartRef = useRef(0)
+  const dragPositionRef = useRef(0)
+  const lastTimeRef = useRef(0)
+  const totalWidthRef = useRef(0)
+  const isVisibleRef = useRef(false)
+
+  // Performance measurement (development only)
+  const frameMetricsRef = useRef({
+    totalFrames: 0,
+    droppedFrames: 0,
+    startTime: 0,
+    lastFrameTime: 0,
+  })
+
+  const measurePerformance = useCallback((timestamp: number) => {
+    if (process.env.NODE_ENV !== 'development') return
+    
+    frameMetricsRef.current.totalFrames++
+    const frameInterval = timestamp - frameMetricsRef.current.lastFrameTime
+    frameMetricsRef.current.lastFrameTime = timestamp
+    
+    // Count dropped frames (interval > 33.3ms = missing at least one 60fps frame)
+    if (frameInterval > 33.3) {
+      frameMetricsRef.current.droppedFrames++
+    }
+
+    // Log metrics every 5 seconds
+    if (frameMetricsRef.current.totalFrames % 300 === 0) {
+      const droppedPercentage = (frameMetricsRef.current.droppedFrames / frameMetricsRef.current.totalFrames) * 100
+      const avgInterval = (timestamp - frameMetricsRef.current.startTime) / frameMetricsRef.current.totalFrames
+      console.log('Tech Stack Performance:', {
+        totalFrames: frameMetricsRef.current.totalFrames,
+        droppedFrames: frameMetricsRef.current.droppedFrames,
+        droppedPercentage: droppedPercentage.toFixed(2) + '%',
+        avgInterval: avgInterval.toFixed(2) + 'ms',
+        targetInterval: '16.67ms (60fps)',
+      })
+    }
+  }, [])
 
   const technologies = [
     { name: 'Angular', icon: '/tech stack/angular.png' },
@@ -72,8 +115,133 @@ export function TechStackMarquee() {
     { name: '.NET Core', icon: '/tech stack/dotnetcore.png' },
   ]
 
-  // Duplicate technologies for seamless infinite scroll
+  // Duplicate the complete dataset to create seamless infinite loop
+  // We need at least 2 full sets to create the illusion of endless scrolling
+  // All 63 technologies participate in the sequence
   const marqueeItems = [...technologies, ...technologies]
+
+  const speed = 0.040 // pixels per millisecond (25px/second - slower and more premium) 
+
+  const animate = useCallback((timestamp: number) => {
+    if (!lastTimeRef.current) {
+      lastTimeRef.current = timestamp
+      frameMetricsRef.current.startTime = timestamp
+      frameMetricsRef.current.lastFrameTime = timestamp
+    }
+
+    const deltaTime = timestamp - lastTimeRef.current
+    lastTimeRef.current = timestamp
+
+    // Performance measurement (development only)
+    measurePerformance(timestamp)
+
+    // Only animate if section is visible
+    if (!isVisibleRef.current) {
+      animationRef.current = requestAnimationFrame(animate)
+      return
+    }
+
+    if (!isPaused && !isDragging) {
+      positionRef.current -= speed * deltaTime
+    }
+
+    // Calculate total width to determine loop point
+    if (marqueeRef.current && containerRef.current) {
+      const itemWidth = marqueeRef.current.children[0] as HTMLElement
+      if (itemWidth) {
+        const gap = 32 // approximate gap (gap-8 = 32px)
+        const singleItemWidth = itemWidth.offsetWidth + gap
+        const totalWidth = singleItemWidth * technologies.length
+        
+        // Store total width for reference
+        totalWidthRef.current = totalWidth
+
+        // Reset position when we've moved past one complete set of all technologies
+        // This ensures all 63 items are shown before looping back to the first
+        if (positionRef.current <= -totalWidth) {
+          positionRef.current += totalWidth
+        }
+      }
+    }
+
+    if (marqueeRef.current) {
+      marqueeRef.current.style.transform = `translate3d(${positionRef.current}px, 0, 0)`
+    }
+
+    animationRef.current = requestAnimationFrame(animate)
+  }, [isPaused, isDragging, technologies.length, measurePerformance])
+
+  // Intersection Observer to detect visibility
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          isVisibleRef.current = entry.isIntersecting
+        })
+      },
+      { threshold: 0.1 }
+    )
+
+    if (containerRef.current) {
+      observer.observe(containerRef.current)
+    }
+
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      animationRef.current = requestAnimationFrame(animate)
+      return () => {
+        if (animationRef.current) {
+          cancelAnimationFrame(animationRef.current)
+        }
+      }
+    }
+  }, [animate])
+
+  const handleMouseDown = useCallback((e: React.MouseEvent) => {
+    setIsDragging(true)
+    setIsPaused(true)
+    dragStartRef.current = e.clientX
+    dragPositionRef.current = positionRef.current
+  }, [])
+
+  const handleMouseMove = useCallback((e: React.MouseEvent) => {
+    if (!isDragging) return
+    const diff = e.clientX - dragStartRef.current
+    positionRef.current = dragPositionRef.current + diff
+  }, [isDragging])
+
+  const handleMouseUp = useCallback(() => {
+    setIsDragging(false)
+    setIsPaused(false)
+  }, [])
+
+  const handleMouseLeave = useCallback(() => {
+    if (isDragging) {
+      setIsDragging(false)
+      setIsPaused(false)
+    }
+  }, [isDragging])
+
+  const handleTouchStart = useCallback((e: React.TouchEvent) => {
+    setIsDragging(true)
+    setIsPaused(true)
+    dragStartRef.current = e.touches[0].clientX
+    dragPositionRef.current = positionRef.current
+  }, [])
+
+  const handleTouchMove = useCallback((e: React.TouchEvent) => {
+    if (!isDragging) return
+    const diff = e.touches[0].clientX - dragStartRef.current
+    positionRef.current = dragPositionRef.current + diff
+  }, [isDragging])
+
+  const handleTouchEnd = useCallback(() => {
+    setIsDragging(false)
+    setIsPaused(false)
+  }, [])
 
   return (
     <section className="relative z-20 py-16 px-4 sm:px-8 border-t border-white/10">
@@ -87,22 +255,28 @@ export function TechStackMarquee() {
 
         {/* Infinite Marquee Container */}
         <div
-          className="relative overflow-hidden"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onTouchStart={() => setIsPaused(true)}
-          onTouchEnd={() => setIsPaused(false)}
+          ref={containerRef}
+          className="relative overflow-hidden select-none"
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
         >
           <div
             ref={marqueeRef}
-            className={`flex gap-8 sm:gap-10 md:gap-12 ${
-              isPaused ? '' : 'animate-marquee'
-            }`}
+            className="flex gap-8 sm:gap-10 md:gap-12 will-change-transform"
+            style={{ transform: `translate3d(${positionRef.current}px, 0, 0)` }}
           >
             {marqueeItems.map((tech, index) => (
               <div
                 key={`${tech.name}-${index}`}
-                className="flex-shrink-0 flex flex-col items-center gap-2 md:gap-3 group transition-transform duration-300 hover:scale-125"
+                className="flex-shrink-0 flex flex-col items-center gap-2 md:gap-3 group transition-transform duration-300"
+                style={{
+                  transform: 'scale(1)',
+                }}
               >
                 <div className="relative h-14 w-14 sm:h-16 sm:w-16 md:h-20 md:w-20 rounded-full border border-white/20 bg-white/5 overflow-hidden">
                   <img

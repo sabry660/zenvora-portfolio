@@ -31,7 +31,7 @@ const DEFAULT_TUNING: ForestTuning = {
   fog: 0.25,
 }
 
-function StaticForestFallback() {
+const StaticForestFallback = function StaticForestFallback() {
   return (
     <div className="absolute inset-0 bg-background" aria-hidden="true">
       <div className="forest-static-texture absolute inset-0" />

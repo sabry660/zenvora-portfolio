@@ -1,10 +1,38 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { ArrowRight, Code, Bot, Palette, TrendingUp, Search, Cloud, X } from 'lucide-react'
 
 export function ServicesSection() {
   const [selectedService, setSelectedService] = useState<typeof services[0] | null>(null)
+
+  // Lock body scroll when modal opens
+  useEffect(() => {
+    if (selectedService) {
+      // Store current scroll position
+      const scrollY = window.scrollY
+      const scrollX = window.scrollX
+      
+      // Lock body scroll
+      document.body.style.overflow = 'hidden'
+      document.body.style.position = 'fixed'
+      document.body.style.top = `-${scrollY}px`
+      document.body.style.left = `-${scrollX}px`
+      document.body.style.width = '100%'
+      document.body.style.height = '100%'
+      
+      return () => {
+        // Restore scroll position
+        document.body.style.overflow = ''
+        document.body.style.position = ''
+        document.body.style.top = ''
+        document.body.style.left = ''
+        document.body.style.width = ''
+        document.body.style.height = ''
+        window.scrollTo(scrollX, scrollY)
+      }
+    }
+  }, [selectedService])
 
   const services = [
     {
