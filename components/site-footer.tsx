@@ -22,7 +22,7 @@ export function SiteFooter() {
           <a href="https://tiktok.com/@zenvora600" target="_blank" rel="noopener noreferrer" className="text-white/60 transition hover:text-white">
             TikTok
           </a>
-          <span className="ml-auto text-xs text-white/40">Last updated: 2026-08-18</span>
+          <span className="ml-auto text-xs text-white/40">Last updated: 2026-09-25</span>
         </div>
       </div>
     </footer>
