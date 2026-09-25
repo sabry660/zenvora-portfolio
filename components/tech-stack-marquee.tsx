@@ -120,7 +120,7 @@ export function TechStackMarquee() {
   // All 63 technologies participate in the sequence
   const marqueeItems = [...technologies, ...technologies]
 
-  const speed = 0.040 // pixels per millisecond (25px/second - slower and more premium) 
+  const speed = 0.3 // pixels per millisecond (25px/second - slower and more premium) 
 
   const animate = useCallback((timestamp: number) => {
     if (!lastTimeRef.current) {

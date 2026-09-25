@@ -127,16 +127,6 @@ export function PortfolioCarousel() {
     return () => observer.disconnect()
   }, [])
 
-  useEffect(() => {
-    if (!isVisible) return
-
-    const interval = setInterval(() => {
-      setActiveIndex((prev) => (prev + 1) % projects.length)
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [isVisible, projects.length])
-
   const handleDotClick = (index: number) => {
     setActiveIndex(index)
   }
