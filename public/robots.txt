@@ -1,5 +1,4 @@
-# https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
 
-Sitemap: https://zenvora.com/sitemap.xml
+Sitemap: https://zenvora.agency/sitemap.xml
