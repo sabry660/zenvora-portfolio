@@ -4,22 +4,22 @@ import { useEffect, useRef, useState } from 'react'
 
 const metrics = [
   {
-    value: 99.9,
+    value: 99.5,
     suffix: '%',
     label: 'Uptime & System Reliability',
   },
   {
-    value: 10,
-    suffix: 'M+',
+    value: 1000,
+    suffix: '+',
     label: 'Active Users Served',
   },
   {
-    value: 50,
+    value: 25,
     suffix: '+',
     label: 'Enterprise Systems Delivered',
   },
   {
-    value: 100,
+    value: 95,
     suffix: '%',
     label: 'Client Retention & Support',
   },
