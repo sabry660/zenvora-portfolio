@@ -14,32 +14,207 @@ interface TeamMember {
 
 const teamMembers: TeamMember[] = [
   {
-    name: 'Alex Morgan',
-    role: 'Full-Stack Developer',
-    image: 'AM',
-    bio: 'Full-stack developer with 8+ years of experience building scalable web applications. Expert in React, Node.js, TypeScript, and cloud architecture. Led development of enterprise-level systems serving millions of users.',
-    skills: ['React', 'Node.js', 'TypeScript', 'AWS', 'PostgreSQL', 'GraphQL', 'Docker', 'CI/CD'],
+    name: 'Mohamed Sabry',
+    role: 'CEO · Founder · CTO',
+    image: '/team/sabry.jpg',
+    bio: 'Founder and technical lead focused on turning ideas into scalable digital products. Works across frontend, backend, mobile development, system architecture, DevOps, and technical project direction.',
+    skills: [
+      'Frontend Development',
+      'Backend Development',
+      'React',
+      'Angular',
+      'Next.js',
+      'Spring Boot',
+      'TypeScript',
+      'REST APIs',
+      'Mobile Development',
+      'Flutter',
+      'System Design',
+      'Software Architecture',
+      'DevOps',
+      'Docker',
+      'CI/CD',
+      'Git',
+      'Linux',
+      'Cloud',
+      'Database Design',
+      'Product Development',
+      'Technical Leadership',
+    ],
   },
   {
-    name: 'Sarah Chen',
+    name: 'Ibrahim Wael',
+    role: 'Partner',
+    image: '/team/ibrahim.jpg',
+    bio: 'Focused on management, research, ideas, and understanding markets and opportunities. Contributes to business direction through market analysis, customer insights, strategic thinking, and product research.',
+    skills: [
+      'Management',
+      'Market Research',
+      'Business Research',
+      'Market Analysis',
+      'Competitive Analysis',
+      'Product Research',
+      'Business Strategy',
+      'Trend Analysis',
+      'Customer Insights',
+      'Strategic Thinking',
+      'Idea Development',
+      'Opportunity Analysis',
+    ],
+  },
+  {
+    name: 'Omar Yaser',
+    role: 'Partner',
+    image: '/team/omar.jpg',
+    bio: 'Focused on management, sales, business development, and turning ideas into practical opportunities. Works closely with clients and the market to understand needs, build relationships, and identify new opportunities.',
+    skills: [
+      'Management',
+      'Sales',
+      'Business Development',
+      'Client Relations',
+      'Customer Discovery',
+      'Lead Generation',
+      'Negotiation',
+      'Communication',
+      'Market Research',
+      'Opportunity Identification',
+      'Idea Development',
+      'Relationship Management',
+    ],
+  },
+  {
+    name: 'Mohamed Bakr',
+    role: 'Full-Stack Angular & .NET Developer',
+    image: '/team/bakr.jpg',
+    bio: 'Full-stack developer focused on building modern web applications using Angular and .NET technologies, with experience across frontend interfaces, backend services, APIs, and database-driven systems.',
+    skills: [
+      'Angular',
+      'TypeScript',
+      'JavaScript',
+      '.NET',
+      'ASP.NET Core',
+      'C#',
+      'REST APIs',
+      'Entity Framework',
+      'SQL Server',
+      'Frontend Development',
+      'Backend Development',
+      'Full-Stack Development',
+      'Git',
+      'Software Architecture',
+    ],
+  },
+  {
+    name: 'Hossam Ibrahim',
+    role: 'Frontend React Developer',
+    image: '/team/hossam.jpg',
+    bio: 'Frontend developer focused on building responsive and modern web interfaces with React. Works on reusable components, user-facing experiences, API integration, and frontend performance.',
+    skills: [
+      'React',
+      'JavaScript',
+      'TypeScript',
+      'Next.js',
+      'HTML',
+      'CSS',
+      'Tailwind CSS',
+      'Responsive Design',
+      'UI Implementation',
+      'REST APIs',
+      'Git',
+      'Frontend Performance',
+    ],
+  },
+  {
+    name: 'Shahd Ahmed',
     role: 'UI/UX Designer',
-    image: 'SC',
-    bio: 'Creative UI/UX designer specializing in user-centered design and brand identity systems. 6+ years of experience creating intuitive interfaces that delight users and drive engagement.',
-    skills: ['Figma', 'Adobe XD', 'User Research', 'Prototyping', 'Design Systems', 'Motion Design'],
+    image: '/team/shahd.jpg',
+    bio: 'UI/UX designer focused on creating clear, intuitive, and visually consistent digital experiences. Works across user research, interface design, user flows, wireframes, prototypes, and design systems.',
+    skills: [
+      'Figma',
+      'UI Design',
+      'UX Design',
+      'User Research',
+      'Wireframing',
+      'Prototyping',
+      'Design Systems',
+      'User Flows',
+      'Usability',
+      'Interaction Design',
+      'Visual Design',
+      'Responsive Design',
+    ],
   },
   {
-    name: 'Omar Hassan',
-    role: 'Frontend Developer',
-    image: 'OH',
-    bio: 'Frontend specialist with 7+ years of experience in modern JavaScript frameworks and performance optimization. Expert in React, Vue.js, and advanced CSS techniques.',
-    skills: ['JavaScript', 'React', 'Vue.js', 'CSS/SASS', 'Performance', 'Accessibility', 'Next.js'],
+    name: 'Souhaila Abd El Salam',
+    role: 'UI/UX Designer',
+    image: '/team/souhaila.jpg',
+    bio: 'UI/UX designer focused on user-centered product design and translating ideas into intuitive interfaces. Works across visual design, interaction patterns, prototypes, user flows, and responsive experiences.',
+    skills: [
+      'Figma',
+      'UI Design',
+      'UX Design',
+      'Wireframing',
+      'Prototyping',
+      'User Flows',
+      'Design Systems',
+      'Interaction Design',
+      'Visual Design',
+      'Usability',
+      'Responsive Design',
+      'User Research',
+    ],
   },
   {
-    name: 'Elena Rostova',
-    role: 'DevOps Engineer',
-    image: 'ER',
-    bio: 'DevOps specialist focused on cloud infrastructure automation, Kubernetes orchestration, and continuous deployment pipelines for highly available microservices.',
-    skills: ['Kubernetes', 'Terraform', 'AWS', 'Docker', 'CI/CD', 'Linux', 'Python'],
+    name: 'Manar Salah',
+    role: 'Flutter Developer',
+    image: 'MS',
+    bio: 'Flutter developer focused on cross-platform mobile applications for iOS and Android, with experience in clean architecture, state management, APIs, backend services, maps, payments, offline-first experiences, and on-device AI.',
+    skills: [
+      'Flutter',
+      'Dart',
+      'iOS & Android',
+      'Cross-Platform Development',
+      'Clean Architecture',
+      'BLoC',
+      'REST APIs',
+      'Firebase',
+      'Supabase',
+      'PostgreSQL',
+      'TensorFlow Lite',
+      'MediaPipe',
+      'On-Device AI & ML',
+      'Paymob',
+      'Payment Integration',
+      'Google Maps',
+      'Geofencing',
+      'Hive',
+      'Offline-First',
+      'Caching',
+      'CI/CD',
+      'Git',
+    ],
+  },
+  {
+    name: 'Fares Ayman',
+    role: 'AI / ML Engineer',
+    image: '/team/fares.jpg',
+    bio: 'AI/ML engineer focused on building intelligent applications and data-driven systems using machine learning, generative AI, RAG, and AI agents. Works with data processing, web scraping, LLM applications, and multi-agent systems.',
+    skills: [
+      'Python',
+      'Pandas',
+      'BeautifulSoup',
+      'Scikit-learn',
+      'LangChain',
+      'AI Agents',
+      'RAG',
+      'Multi-Agent Systems',
+      'Generative AI',
+      'Machine Learning',
+      'Data Processing',
+      'Web Scraping',
+      'LLM Applications',
+      'AI Automation',
+    ],
   },
 ]
 
@@ -238,9 +413,17 @@ export function TeamCarousel() {
                 }}
               >
                 <div className="relative mx-auto h-20 w-20 rounded-full border-2 border-[#c8e6d9]/30 bg-gradient-to-br from-[#c8e6d9]/20 to-[#dff3e8]/10 flex items-center justify-center overflow-hidden">
-                  <span className="font-brand text-2xl font-black text-[#c8e6d9]">
-                    {member.image}
-                  </span>
+                  {member.image.startsWith('/') ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className="font-brand text-2xl font-black text-[#c8e6d9]">
+                      {member.image}
+                    </span>
+                  )}
                 </div>
                 <h3 className="mt-4 font-brand text-lg font-black text-[#c8e6d9]">
                   {member.name}
@@ -271,9 +454,17 @@ export function TeamCarousel() {
                 }`}
               >
                 <div className="relative mx-auto h-24 w-24 lg:h-28 lg:w-28 rounded-full border-2 border-[#c8e6d9]/30 bg-gradient-to-br from-[#c8e6d9]/20 to-[#dff3e8]/10 flex items-center justify-center overflow-hidden">
-                  <span className="font-brand text-3xl lg:text-4xl font-black text-[#c8e6d9]">
-                    {member.image}
-                  </span>
+                  {member.image.startsWith('/') ? (
+                    <img
+                      src={member.image}
+                      alt={member.name}
+                      className="h-full w-full object-cover"
+                    />
+                  ) : (
+                    <span className="font-brand text-3xl lg:text-4xl font-black text-[#c8e6d9]">
+                      {member.image}
+                    </span>
+                  )}
                 </div>
                 <h3 className="mt-4 font-brand text-lg lg:text-xl font-black text-[#c8e6d9]">
                   {member.name}
