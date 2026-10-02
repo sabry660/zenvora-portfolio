@@ -216,9 +216,33 @@ const teamMembers: TeamMember[] = [
       'AI Automation',
     ],
   },
+
+  // New Team Member
+  {
+    name: 'Demiana Saeed',
+    role: 'AI / ML Engineer',
+    image: '/team/demiana.jpg',
+    bio: 'AI/ML engineer focused on building intelligent applications and data-driven systems using machine learning, generative AI, RAG, and AI agents. Works with data processing, web scraping, LLM applications, and multi-agent systems.',
+    skills: [
+      'Python',
+      'Pandas',
+      'BeautifulSoup',
+      'Scikit-learn',
+      'LangChain',
+      'AI Agents',
+      'RAG',
+      'Multi-Agent Systems',
+      'Generative AI',
+      'Machine Learning',
+      'Data Processing',
+      'Web Scraping',
+      'LLM Applications',
+      'AI Automation',
+    ],
+  },
 ]
 
-// --- Simplified Modal Component ---
+// --- Team Member Modal ---
 function TeamMemberModal({
   member,
   onClose,
@@ -232,8 +256,10 @@ function TeamMemberModal({
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose()
     }
+
     window.addEventListener('keydown', handleKeyDown)
     modalRef.current?.focus()
+
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [onClose])
 
@@ -243,6 +269,7 @@ function TeamMemberModal({
       onClick={onClose}
       role="dialog"
       aria-modal="true"
+      aria-label={`${member.name} details`}
     >
       <div
         ref={modalRef}
@@ -268,16 +295,15 @@ function TeamMemberModal({
           {member.name}
         </h3>
 
-        {/* Bio */}
         <p className="text-xs sm:text-sm leading-relaxed text-white/80 mb-6">
           {member.bio}
         </p>
 
-        {/* Tech Stack */}
         <div className="space-y-3 pt-4 border-t border-white/10">
           <p className="text-[10px] sm:text-xs tracking-[0.12em] text-white/50 uppercase font-medium">
             Tech Stack & Skills
           </p>
+
           <div className="flex flex-wrap gap-2">
             {member.skills.map((skill) => (
               <span
@@ -304,110 +330,171 @@ export function TeamCarousel() {
   const [isMounted, setIsMounted] = useState(false)
   const [touchStart, setTouchStart] = useState<number | null>(null)
 
+  // Client-only mount state prevents hydration mismatch
   useEffect(() => {
     setIsMounted(true)
   }, [])
 
+  // Lock body scroll while modal is open
   useEffect(() => {
     if (selectedMember) {
       const originalStyle = window.getComputedStyle(document.body).overflow
+
       document.body.style.overflow = 'hidden'
+
       return () => {
         document.body.style.overflow = originalStyle
       }
     }
   }, [selectedMember])
 
+  // Section reveal animation
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) setIsVisible(true)
+          if (entry.isIntersecting) {
+            setIsVisible(true)
+          }
         })
       },
       { threshold: 0.3 }
     )
 
-    if (sectionRef.current) observer.observe(sectionRef.current)
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
     return () => observer.disconnect()
   }, [])
 
   const changePosition = useCallback((direction: number) => {
     setCurrentIndex((prev) => {
       const newIndex = prev + direction
+
       if (newIndex >= teamMembers.length) return 0
       if (newIndex < 0) return teamMembers.length - 1
+
       return newIndex
     })
   }, [])
 
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (selectedMember) return
-      if (e.key === 'ArrowRight') changePosition(1)
-      if (e.key === 'ArrowLeft') changePosition(-1)
+
+      if (e.key === 'ArrowRight') {
+        changePosition(1)
+      }
+
+      if (e.key === 'ArrowLeft') {
+        changePosition(-1)
+      }
     }
 
     window.addEventListener('keydown', handleKeyDown)
+
     return () => window.removeEventListener('keydown', handleKeyDown)
   }, [selectedMember, changePosition])
 
+  // Touch / swipe support
   const handleTouchStart = (e: React.TouchEvent) => {
     setTouchStart(e.touches[0].clientX)
   }
 
   const handleTouchEnd = (e: React.TouchEvent) => {
-    if (!touchStart) return
+    if (touchStart === null) return
+
     const touchEnd = e.changedTouches[0].clientX
     const diff = touchStart - touchEnd
 
-    if (diff > 50) changePosition(1)
-    if (diff < -50) changePosition(-1)
+    if (diff > 50) {
+      changePosition(1)
+    }
+
+    if (diff < -50) {
+      changePosition(-1)
+    }
+
     setTouchStart(null)
   }
 
-  // Helper function to get relative visible cards for Desktop
+  // Helper function for desktop cards
   const getVisibleCards = () => {
     const total = teamMembers.length
+
     const prev = (currentIndex - 1 + total) % total
     const next = (currentIndex + 1) % total
+
     return [
-      { member: teamMembers[prev], position: 'left', index: prev },
-      { member: teamMembers[currentIndex], position: 'center', index: currentIndex },
-      { member: teamMembers[next], position: 'right', index: next },
+      {
+        member: teamMembers[prev],
+        position: 'left',
+        index: prev,
+      },
+      {
+        member: teamMembers[currentIndex],
+        position: 'center',
+        index: currentIndex,
+      },
+      {
+        member: teamMembers[next],
+        position: 'right',
+        index: next,
+      },
     ]
   }
 
   return (
-    <section ref={sectionRef} className="relative z-10 flex min-h-svh flex-col items-center justify-center px-4 py-16 sm:py-24 sm:px-8">
-      <div className={`mx-auto max-w-6xl w-full text-center transition-opacity duration-700 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
-        <p className="text-xs sm:text-sm tracking-[0.16em] text-[#dff3e8]">Our Team</p>
+    <section
+      ref={sectionRef}
+      className="relative z-10 flex min-h-svh flex-col items-center justify-center px-4 py-16 sm:py-24 sm:px-8"
+    >
+      <div
+        className={`mx-auto max-w-6xl w-full text-center transition-opacity duration-700 ${
+          isVisible ? 'opacity-100' : 'opacity-0'
+        }`}
+      >
+        <p className="text-xs sm:text-sm tracking-[0.16em] text-[#dff3e8]">
+          Our Team
+        </p>
+
         <h2 className="mt-2 sm:mt-3 font-brand text-2xl sm:text-3xl md:text-5xl font-black tracking-tight text-white">
           Meet The <span className="text-[#c8e6d9]">Experts</span>
         </h2>
+
         <p className="mx-auto mt-2 sm:mt-3 max-w-2xl text-[13px] sm:text-[15px] leading-relaxed text-white/80">
-          Talented professionals dedicated to delivering exceptional digital solutions.
+          Talented professionals dedicated to delivering exceptional digital
+          solutions.
         </p>
       </div>
 
       <div className="mx-auto mt-8 sm:mt-12 w-full max-w-6xl">
-        {/* MOBILE VIEW: Stacked Cards Effect */}
+        {/* MOBILE VIEW */}
         <div
           className="md:hidden relative h-[360px] w-full flex items-center justify-center select-none"
           onTouchStart={handleTouchStart}
           onTouchEnd={handleTouchEnd}
         >
           {teamMembers.map((member, index) => {
-            const offset = (index - currentIndex + teamMembers.length) % teamMembers.length
-            if (offset > 2) return null // Render top 3 stacked cards
+            const offset =
+              (index - currentIndex + teamMembers.length) %
+              teamMembers.length
+
+            if (offset > 2) return null
 
             return (
               <div
                 key={member.name + index}
-                onClick={() => offset === 0 && setSelectedMember(member)}
+                onClick={() =>
+                  offset === 0 && setSelectedMember(member)
+                }
                 className="absolute w-[290px] rounded-2xl border border-white/15 bg-[#121414] p-6 text-center shadow-2xl transition-all duration-500 ease-out cursor-pointer"
                 style={{
-                  transform: `translateY(${offset * 14}px) scale(${1 - offset * 0.06})`,
+                  transform: `translateY(${offset * 14}px) scale(${
+                    1 - offset * 0.06
+                  })`,
                   opacity: 1 - offset * 0.25,
                   zIndex: 30 - offset,
                 }}
@@ -425,25 +512,40 @@ export function TeamCarousel() {
                     </span>
                   )}
                 </div>
+
                 <h3 className="mt-4 font-brand text-lg font-black text-[#c8e6d9]">
                   {member.name}
                 </h3>
-                <p className="mt-1 text-xs text-white/70">{member.role}</p>
+
+                <p className="mt-1 text-xs text-white/70">
+                  {member.role}
+                </p>
+
+                {/* Click tip */}
+                {offset === 0 && (
+                  <p className="mt-4 text-[10px] tracking-[0.08em] uppercase text-white/40">
+                    Tap the card to view details
+                  </p>
+                )}
               </div>
             )
           })}
         </div>
 
-        {/* DESKTOP VIEW: 3D Perspective Multi-Card Carousel */}
+        {/* DESKTOP VIEW */}
         <div className="hidden md:flex relative h-[420px] w-full items-center justify-center">
           {getVisibleCards().map(({ member, position, index }) => {
             const isCenter = position === 'center'
+
             return (
               <div
                 key={member.name + index}
                 onClick={() => {
-                  if (isCenter) setSelectedMember(member)
-                  else setCurrentIndex(index)
+                  if (isCenter) {
+                    setSelectedMember(member)
+                  } else {
+                    setCurrentIndex(index)
+                  }
                 }}
                 className={`absolute w-[320px] lg:w-[360px] rounded-2xl border bg-[#121414]/90 backdrop-blur-md p-6 text-center shadow-2xl transition-all duration-500 ease-in-out cursor-pointer ${
                   isCenter
@@ -466,10 +568,21 @@ export function TeamCarousel() {
                     </span>
                   )}
                 </div>
+
                 <h3 className="mt-4 font-brand text-lg lg:text-xl font-black text-[#c8e6d9]">
                   {member.name}
                 </h3>
-                <p className="mt-1 text-sm text-white/70">{member.role}</p>
+
+                <p className="mt-1 text-sm text-white/70">
+                  {member.role}
+                </p>
+
+                {/* Click tip */}
+                {isCenter && (
+                  <p className="mt-4 text-[10px] tracking-[0.08em] uppercase text-white/40">
+                    Click the card to view details
+                  </p>
+                )}
               </div>
             )
           })}
@@ -483,7 +596,10 @@ export function TeamCarousel() {
             aria-label="Previous team member"
             className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/30 bg-white/5 text-white transition hover:border-[#c8e6d9] hover:bg-[#c8e6d9]/10 hover:text-[#c8e6d9]"
           >
-            <ChevronLeft className="h-5 w-5" strokeWidth={2} />
+            <ChevronLeft
+              className="h-5 w-5"
+              strokeWidth={2}
+            />
           </button>
 
           <div className="flex items-center gap-2 sm:gap-3">
@@ -508,12 +624,15 @@ export function TeamCarousel() {
             aria-label="Next team member"
             className="flex h-9 w-9 sm:h-10 sm:w-10 items-center justify-center rounded-full border border-white/30 bg-white/5 text-white transition hover:border-[#c8e6d9] hover:bg-[#c8e6d9]/10 hover:text-[#c8e6d9]"
           >
-            <ChevronRight className="h-5 w-5" strokeWidth={2} />
+            <ChevronRight
+              className="h-5 w-5"
+              strokeWidth={2}
+            />
           </button>
         </div>
       </div>
 
-      {/* Render Portal Modal */}
+      {/* Render Portal Modal only after client mount */}
       {isMounted && selectedMember && (
         <TeamMemberModal
           member={selectedMember}

@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     siteName: 'Zenvora Technologies',
     images: [
       {
-        url: '/zenvora.png',
+        url: '/og.jpg',
         width: 1200,
         height: 630,
         alt: 'Zenvora Technologies - Software Development Company in Alexandria, Egypt',
@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     title: 'Zenvora Technologies — Building Smarter Digital Solutions in Alexandria, Egypt',
     description: 'Zenvora Technologies is a leading software development company in Alexandria, Egypt. We specialize in custom software development, AI solutions, web and mobile applications, UI/UX design, digital marketing, SEO, and cloud infrastructure.',
     creator: '@zenvora',
-    images: ['/zenvora.png'],
+    images: ['/og.jpg'],
   },
   robots: {
     index: true,
