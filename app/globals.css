@@ -74,10 +74,12 @@
 .zenvora-logo {
   background-color: currentColor;
   mask-image: url('/zenvora.png');
+  mask-mode: luminance;
   mask-position: center;
   mask-repeat: no-repeat;
   mask-size: contain;
   -webkit-mask-image: url('/zenvora.png');
+  -webkit-mask-mode: luminance;
   -webkit-mask-position: center;
   -webkit-mask-repeat: no-repeat;
   -webkit-mask-size: contain;
