@@ -93,7 +93,7 @@ export function PortfolioCarousel() {
       title: "Tabibi Clinic Management",
       image: "/Projects/clinic.mp4",
       technologies: ["Flutter"],
-      CaseStudy: "https://case-study-chi-tan.vercel.app/"
+      CaseStudy: "https://case-study-chi-tan.vercel.app/",
       description:
         "A mobile clinic management solution designed to simplify healthcare operations, patient management, and everyday clinic workflows.",
     },
