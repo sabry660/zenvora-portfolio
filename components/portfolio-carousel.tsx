@@ -580,17 +580,30 @@ export function PortfolioCarousel() {
                       <p className="text-xs sm:text-sm text-white/60 mb-3 sm:mb-4 line-clamp-2">
                         {project.description}
                       </p>
-                      {project.liveDemo && (
-                        <a
-                          href={project.liveDemo}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="inline-flex items-center gap-2 rounded-full bg-[#c8e6d9] px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1e1f1f] transition hover:bg-[#dff3e8]"
-                        >
-                          Live Demo
-                          <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
-                        </a>
-                      )}
+                      <div className="flex flex-wrap gap-3">
+                        {project.liveDemo && (
+                          <a
+                            href={project.liveDemo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full bg-[#c8e6d9] px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1e1f1f] transition hover:bg-[#dff3e8]"
+                          >
+                            Live Demo
+                            <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
+                          </a>
+                        )}
+                        {'CaseStudy' in project && (
+                          <a
+                            href={project.CaseStudy}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-2 rounded-full border border-[#c8e6d9]/60 bg-black/40 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#dff3e8] transition hover:bg-[#c8e6d9]/15"
+                          >
+                            Case Study
+                            <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
