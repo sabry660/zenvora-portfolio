@@ -13,18 +13,18 @@ export function PortfolioCarousel() {
     // EXISTING PROJECTS — SAME PROJECTS, ONLY REORDERED
     // =========================================================
 
-    {
-      title: "CHUWI",
-      image: "/Projects/chuwi.png",
-      liveDemo: "https://www.chuwi.com/",
-      technologies: ["Angular", "AWS", "Node.js", "Express.js"],
+      {
+      title: "Tabibi Clinic Management",
+      image: "/Projects/clinic.mp4",
+      technologies: ["Flutter"],
+      CaseStudy: "https://case-study-chi-tan.vercel.app/",
       description:
-        "A modern technology-focused platform designed to present products, information, and digital experiences through a responsive web interface.",
+        "A mobile clinic management solution designed to simplify healthcare operations, patient management, and everyday clinic workflows.",
     },
-
     {
       title: "School Management System",
       image: "/Projects/school.mp4",
+      CaseStudy: "https://schoolcasestudy.vercel.app/",
       technologies: [
         "Next.js",
         "Express.js",
@@ -39,6 +39,7 @@ export function PortfolioCarousel() {
     {
       title: "Analytics Dashboard",
       image: "/Projects/analytics.jpg",
+      CaseStudy: "https://analyticsdashboardcasestudy.vercel.app/",
       technologies: [
         "React",
         "Flask",
@@ -52,6 +53,7 @@ export function PortfolioCarousel() {
     {
       title: "Logistics Management System",
       image: "/Projects/logistics.mp4",
+      CaseStudy: "https://logisticscasestudy.vercel.app/",
       technologies: [
         "React",
         "Node.js",
@@ -66,6 +68,7 @@ export function PortfolioCarousel() {
     {
       title: "Arabic Gym System",
       image: "/Projects/gym.jpg",
+      CaseStudy: "https://arabicgymcasestudy.vercel.app/",
       technologies: [
         "Next.js",
         "PostgreSQL",
@@ -89,21 +92,32 @@ export function PortfolioCarousel() {
         "A restaurant point-of-sale platform designed to simplify ordering, restaurant operations, products, and transaction management.",
     },
 
-    {
-      title: "Tabibi Clinic Management",
-      image: "/Projects/clinic.mp4",
-      technologies: ["Flutter"],
-      CaseStudy: "https://case-study-chi-tan.vercel.app/",
-      description:
-        "A mobile clinic management solution designed to simplify healthcare operations, patient management, and everyday clinic workflows.",
-    },
+  
 
     {
       title: "Arabic Accounting System",
       image: "/Projects/accounting.jpg",
+      CaseStudy: "https://arabicaccountingcasestudy.vercel.app/",
       technologies: ["Python", "Flask", "SQLite"],
       description:
         "An Arabic accounting management system designed to organize financial records, transactions, and essential business accounting workflows.",
+    },
+
+    {
+      title: "Super Market",
+      image: "/Projects/market.jpg",
+      CaseStudy: "https://supermarketcasestudy.vercel.app/",
+      technologies: ["python", "Django", "PostgreSQL", "Bootstrap"],
+      description:
+        "A supermarket e-commerce experience for browsing products and managing everyday shopping.",
+    },
+       {
+      title: "CHUWI",
+      image: "/Projects/chuwi.png",
+      liveDemo: "https://www.chuwi.com/",
+      technologies: ["Angular", "AWS", "Node.js", "Express.js"],
+      description:
+        "A modern technology-focused platform designed to present products, information, and digital experiences through a responsive web interface.",
     },
 
     {
