@@ -1,15 +1,18 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, ExternalLink, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
 
 export function PortfolioCarousel() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
   const [selectedMedia, setSelectedMedia] = useState<{ image: string; title: string } | null>(null)
+  const [activeCategory, setActiveCategory] = useState<'systems' | 'landingPages' | null>(null)
+  const [isPreparingMedia, setIsPreparingMedia] = useState(false)
+  const [preparedMediaCount, setPreparedMediaCount] = useState(0)
   const carouselRef = useRef<HTMLDivElement>(null)
 
-  const projects = [
+  const projects = useMemo(() => [
     // =========================================================
     // Systems
     // =========================================================
@@ -496,7 +499,72 @@ export function PortfolioCarousel() {
       description:
         "A premium product landing experience designed around luxury visual presentation, product identity, and responsive storytelling.",
     },
-  ]
+  ], [])
+
+  const landingPageStartIndex = projects.findIndex((project) => project.title === 'Coach Gym')
+  const visibleProjects = activeCategory === 'systems'
+    ? projects.slice(0, landingPageStartIndex)
+    : activeCategory === 'landingPages'
+      ? projects.slice(landingPageStartIndex)
+      : []
+
+  useEffect(() => {
+    if (!activeCategory) return
+
+    let cancelled = false
+    const categoryProjects = activeCategory === 'systems'
+      ? projects.slice(0, landingPageStartIndex)
+      : projects.slice(landingPageStartIndex)
+    const totalMedia = categoryProjects.length
+    let nextIndex = 0
+    let completedCount = 0
+
+    const prepareMedia = (source: string) => new Promise<void>((resolve) => {
+      if (source.endsWith('.mp4')) {
+        const video = document.createElement('video')
+        video.preload = 'auto'
+        video.muted = true
+        video.onloadeddata = () => resolve()
+        video.onerror = () => resolve()
+        video.src = source
+        video.load()
+        return
+      }
+
+      const image = new Image()
+      image.onload = async () => {
+        try {
+          await image.decode()
+        } catch {
+          // A loaded image remains usable if decode() is unsupported.
+        }
+        resolve()
+      }
+      image.onerror = () => resolve()
+      image.src = source
+    })
+
+    const worker = async () => {
+      while (!cancelled) {
+        const index = nextIndex++
+        const project = categoryProjects[index]
+        if (!project) return
+
+        await prepareMedia(project.image)
+        if (cancelled) return
+        completedCount += 1
+        setPreparedMediaCount(completedCount)
+      }
+    }
+
+    Promise.all(Array.from({ length: Math.min(3, totalMedia) }, worker)).then(() => {
+      if (!cancelled) setIsPreparingMedia(false)
+    })
+
+    return () => {
+      cancelled = true
+    }
+  }, [activeCategory, landingPageStartIndex, projects])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -572,7 +640,93 @@ export function PortfolioCarousel() {
         </p>
       </div>
 
-      <div className="mx-auto mt-12 w-full max-w-6xl">
+      {activeCategory === null ? (
+        <div className="mx-auto mt-8 sm:mt-12 grid w-full max-w-6xl grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6">
+          {[
+            {
+              id: 'systems' as const,
+              title: 'Systems',
+              subtitle: 'Platforms, dashboards & custom software',
+              image: '/systems.jpg',
+              count: landingPageStartIndex,
+            },
+            {
+              id: 'landingPages' as const,
+              title: 'Landing Pages',
+              subtitle: 'Brand-led digital experiences',
+              image: '/landing-pages.jpg',
+              count: projects.length - landingPageStartIndex,
+            },
+          ].map((category, index) => (
+            <button
+              key={category.id}
+              type="button"
+              onClick={() => {
+                setActiveIndex(0)
+                setPreparedMediaCount(0)
+                setIsPreparingMedia(true)
+                setActiveCategory(category.id)
+              }}
+              className="group relative isolate flex aspect-square min-h-0 flex-col justify-end overflow-hidden rounded-xl border border-white/15 bg-[#121414] p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-[#c8e6d9]/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c8e6d9] sm:p-7"
+              style={{ animationDelay: `${index * 100}ms` }}
+            >
+              <img
+                src={category.image}
+                alt=""
+                loading="lazy"
+                decoding="async"
+                className="absolute inset-0 -z-20 h-full w-full object-cover opacity-45 transition duration-700 group-hover:scale-105 group-hover:opacity-60"
+              />
+              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black via-black/55 to-black/10" />
+              <span className="mb-3 text-xs font-medium uppercase text-[#dff3e8]">
+                {String(category.count).padStart(2, '0')} projects
+              </span>
+              <span className="font-brand text-2xl font-black text-white sm:text-3xl">
+                {category.title}
+              </span>
+              <span className="mt-1 text-sm text-white/75">{category.subtitle}</span>
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#c8e6d9]">
+                Explore <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+              </span>
+            </button>
+          ))}
+        </div>
+      ) : isPreparingMedia ? (
+        <div className="mx-auto mt-8 flex min-h-72 w-full max-w-6xl flex-col items-center justify-center rounded-xl border border-white/10 bg-[#121414]/75 px-6 py-10 text-center sm:mt-12 sm:min-h-96">
+          <div className="relative mb-7 flex h-16 w-16 items-center justify-center">
+            <span className="absolute inset-0 animate-spin rounded-full border-2 border-[#c8e6d9]/15 border-t-[#c8e6d9]" />
+            <span className="h-2 w-2 rounded-full bg-[#dff3e8] shadow-[0_0_18px_4px_rgba(200,230,217,0.4)]" />
+          </div>
+          <p className="text-xs font-semibold uppercase text-[#c8e6d9]">Preparing {activeCategory === 'systems' ? 'systems' : 'landing pages'}</p>
+          <p className="mt-2 font-brand text-2xl font-black text-white sm:text-3xl">Loading the work</p>
+          <div className="mt-6 h-1.5 w-full max-w-sm overflow-hidden rounded-full bg-white/10">
+            <div
+              className="h-full rounded-full bg-[#c8e6d9] transition-[width] duration-300"
+              style={{ width: `${visibleProjects.length ? (preparedMediaCount / visibleProjects.length) * 100 : 0}%` }}
+            />
+          </div>
+          <p className="mt-3 text-xs text-white/55" aria-live="polite">
+            {preparedMediaCount} / {visibleProjects.length} visuals ready
+          </p>
+        </div>
+      ) : (
+      <div className="mx-auto mt-8 w-full max-w-6xl sm:mt-12">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3 sm:mb-5">
+          <p className="font-brand text-lg font-bold text-white sm:text-xl">
+            {activeCategory === 'systems' ? 'Systems' : 'Landing Pages'}
+            <span className="ml-2 text-sm font-normal text-white/50">{visibleProjects.length} projects</span>
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              setActiveCategory(null)
+              setActiveIndex(0)
+            }}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-2 text-xs font-semibold text-white/75 transition hover:border-[#c8e6d9]/60 hover:text-white sm:px-4 sm:text-sm"
+          >
+            Change category
+          </button>
+        </div>
         <div className="relative overflow-hidden rounded-2xl border border-white/15 bg-[#121414]/50 backdrop-blur-sm">
           {/* Left Arrow */}
           <button
@@ -599,7 +753,7 @@ export function PortfolioCarousel() {
             className="flex transition-transform duration-500 ease-in-out"
             style={{ transform: `translateX(-${activeIndex * 100}%)` }}
           >
-            {projects.map((project, index) => {
+            {visibleProjects.map((project, index) => {
               const isVideo = project.image.endsWith('.mp4')
 
               return (
@@ -613,16 +767,19 @@ export function PortfolioCarousel() {
                     {isVideo ? (
                       <video
                         src={project.image}
-                        autoPlay
+                        autoPlay={activeIndex === index}
                         loop
                         muted
                         playsInline
+                        preload={activeIndex === index ? 'metadata' : 'none'}
                         className="w-full h-full object-cover"
                       />
                     ) : (
                       <img
                         src={project.image}
                         alt={project.title}
+                        loading={activeIndex === index ? 'eager' : 'lazy'}
+                        decoding="async"
                         className="w-full h-full object-cover"
                       />
                     )}
@@ -679,7 +836,7 @@ export function PortfolioCarousel() {
 
           {/* Navigation Dots */}
           <div className="absolute bottom-4 left-0 right-0 hidden md:flex items-center justify-center gap-3 z-40">
-            {projects.map((_, index) => (
+            {visibleProjects.map((_, index) => (
               <button
                 key={index}
                 type="button"
@@ -693,6 +850,7 @@ export function PortfolioCarousel() {
           </div>
         </div>
       </div>
+      )}
 
       {selectedMedia && (
         <div
