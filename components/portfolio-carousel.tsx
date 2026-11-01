@@ -1,16 +1,17 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { ArrowRight, ExternalLink, ChevronLeft, ChevronRight } from 'lucide-react'
+import { ArrowRight, ExternalLink, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
 
 export function PortfolioCarousel() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
+  const [selectedMedia, setSelectedMedia] = useState<{ image: string; title: string } | null>(null)
   const carouselRef = useRef<HTMLDivElement>(null)
 
   const projects = [
     // =========================================================
-    // EXISTING PROJECTS — SAME PROJECTS, ONLY REORDERED
+    // Systems
     // =========================================================
 
       {
@@ -81,6 +82,7 @@ export function PortfolioCarousel() {
     {
       title: "POSR Restaurant",
       image: "/Projects/posr.mp4",
+      CaseStudy: "https://restaurantposcasestudy.vercel.app/",
       technologies: [
         "React",
         "TypeScript",
@@ -111,16 +113,8 @@ export function PortfolioCarousel() {
       description:
         "A supermarket e-commerce experience for browsing products and managing everyday shopping.",
     },
-       {
-      title: "CHUWI",
-      image: "/Projects/chuwi.png",
-      liveDemo: "https://www.chuwi.com/",
-      technologies: ["Angular", "AWS", "Node.js", "Express.js"],
-      description:
-        "A modern technology-focused platform designed to present products, information, and digital experiences through a responsive web interface.",
-    },
-
-    {
+    
+      {
       title: "Catch Recruitment",
       image: "/Projects/catch.png",
       liveDemo: "https://catchrecruitment.com/",
@@ -133,7 +127,29 @@ export function PortfolioCarousel() {
       description:
         "A recruitment platform focused on connecting talent and opportunities through a modern, responsive digital experience.",
     },
+    
+    //-----------------------------------
+    // LANDING PAGES
+    //---------------------------------------
 
+    {
+      title: "Coach Gym",
+      image: "/Projects/coach-gym.jpg",
+      liveDemo: "https://gym-theta-green.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A personal fitness coaching landing page featuring training programs, fitness goals, pricing, gallery, blog content, and contact information.",
+    },
+    
+       {
+      title: "CHUWI",
+      image: "/Projects/chuwi.png",
+      liveDemo: "https://www.chuwi.com/",
+      technologies: ["Angular", "AWS", "Node.js", "Express.js"],
+      description:
+        "A modern technology-focused platform designed to present products, information, and digital experiences through a responsive web interface.",
+    },
+    
     {
       title: "Palestinian Stories",
       image: "/Projects/palestine.png",
@@ -147,8 +163,8 @@ export function PortfolioCarousel() {
       description:
         "A digital storytelling platform built to present Palestinian stories and cultural content through an immersive web experience.",
     },
-
-    {
+    
+     {
       title: "Word of mouth",
       image: "/Projects/w.w.png",
       liveDemo: "https://wordofmoutheg.com/",
@@ -156,18 +172,14 @@ export function PortfolioCarousel() {
       description:
         "A modern digital platform designed to present services and content through a clean, responsive user experience.",
     },
-
-    // =========================================================
-    // NEW LANDING PAGES
-    // =========================================================
-
-    {
-      title: "Coach Gym",
-      image: "/Projects/coach-gym.jpg",
-      liveDemo: "https://gym-theta-green.vercel.app/",
-      technologies: ["React", "Responsive Web Design"],
+    
+       {
+      title: "Fluency Sprint",
+      image: "/Projects/f.s.png",
+      liveDemo: "https://www.fluencysprint.online/",
+      technologies: ["React", "Responsive Design",  "Tailwind"],
       description:
-        "A personal fitness coaching landing page featuring training programs, fitness goals, pricing, gallery, blog content, and contact information.",
+        "A modern, technology-driven platform designed to present interactive English language courses, learning resources, and immersive digital experiences through a responsive web interface.",
     },
 
     {
@@ -505,6 +517,37 @@ export function PortfolioCarousel() {
     return () => observer.disconnect()
   }, [])
 
+  useEffect(() => {
+    if (!selectedMedia) return
+
+    const scrollY = window.scrollY
+    const previousBodyStyles = {
+      position: document.body.style.position,
+      top: document.body.style.top,
+      width: document.body.style.width,
+      overflow: document.body.style.overflow,
+    }
+
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.width = '100%'
+    document.body.style.overflow = 'hidden'
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setSelectedMedia(null)
+    }
+
+    window.addEventListener('keydown', handleKeyDown)
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown)
+      document.body.style.position = previousBodyStyles.position
+      document.body.style.top = previousBodyStyles.top
+      document.body.style.width = previousBodyStyles.width
+      document.body.style.overflow = previousBodyStyles.overflow
+      window.scrollTo(0, scrollY)
+    }
+  }, [selectedMedia])
+
   const handleDotClick = (index: number) => {
     setActiveIndex(index)
   }
@@ -594,13 +637,22 @@ export function PortfolioCarousel() {
                       <p className="text-xs sm:text-sm text-white/60 mb-3 sm:mb-4 line-clamp-2">
                         {project.description}
                       </p>
-                      <div className="flex flex-wrap gap-3">
+                      <div className="flex flex-nowrap gap-2">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedMedia({ image: project.image, title: project.title })}
+                          aria-label={`Expand ${project.title} media`}
+                          className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-white/30 bg-black/50 px-2.5 sm:px-6 py-2 sm:py-2.5 text-[11px] sm:text-sm font-semibold text-white transition hover:border-[#c8e6d9] hover:text-[#dff3e8] sm:gap-2"
+                        >
+                          <Maximize2 className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
+                          Expand
+                        </button>
                         {project.liveDemo && (
                           <a
                             href={project.liveDemo}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full bg-[#c8e6d9] px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1e1f1f] transition hover:bg-[#dff3e8]"
+                            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full bg-[#c8e6d9] px-2.5 sm:px-6 py-2 sm:py-2.5 text-[11px] sm:text-sm font-semibold text-[#1e1f1f] transition hover:bg-[#dff3e8] sm:gap-2"
                           >
                             Live Demo
                             <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
@@ -611,7 +663,7 @@ export function PortfolioCarousel() {
                             href={project.CaseStudy}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="inline-flex items-center gap-2 rounded-full border border-[#c8e6d9]/60 bg-black/40 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#dff3e8] transition hover:bg-[#c8e6d9]/15"
+                            className="inline-flex shrink-0 items-center gap-1.5 whitespace-nowrap rounded-full border border-[#c8e6d9]/60 bg-black/40 px-2.5 sm:px-6 py-2 sm:py-2.5 text-[11px] sm:text-sm font-semibold text-[#dff3e8] transition hover:bg-[#c8e6d9]/15 sm:gap-2"
                           >
                             Case Study
                             <ExternalLink className="h-3.5 w-3.5 sm:h-4 sm:w-4" strokeWidth={2} />
@@ -641,6 +693,42 @@ export function PortfolioCarousel() {
           </div>
         </div>
       </div>
+
+      {selectedMedia && (
+        <div
+          className="fixed inset-0 z-[100] flex h-[100dvh] w-screen items-center justify-center overflow-hidden bg-black p-0"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`${selectedMedia.title} media preview`}
+          onClick={() => setSelectedMedia(null)}
+        >
+          <button
+            type="button"
+            onClick={() => setSelectedMedia(null)}
+            aria-label="Close media preview"
+            className="absolute right-4 top-4 z-10 flex h-11 w-11 items-center justify-center rounded-full border border-white/30 bg-black/60 text-white transition hover:border-[#c8e6d9] hover:text-[#dff3e8]"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          {selectedMedia.image.endsWith('.mp4') ? (
+            <video
+              src={selectedMedia.image}
+              controls
+              autoPlay
+              playsInline
+              className="h-full w-full object-contain"
+              onClick={(event) => event.stopPropagation()}
+            />
+          ) : (
+            <img
+              src={selectedMedia.image}
+              alt={selectedMedia.title}
+              className="h-full w-full object-contain"
+              onClick={(event) => event.stopPropagation()}
+            />
+          )}
+        </div>
+      )}
     </section>
   )
 }
