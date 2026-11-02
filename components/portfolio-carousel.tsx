@@ -117,10 +117,19 @@ export function PortfolioCarousel() {
         "A supermarket e-commerce experience for browsing products and managing everyday shopping.",
     },
     
+     {
+      title: "Hospital Managment System",
+      image: "/Projects/hospital.jpg",
+      CaseStudy: "https://hospitalcasestudy.vercel.app/",
+      technologies: ["PHP", "Laravel", "MySQL", "Native FrontEnd"],
+      description:
+        "A digital healthcare platform for booking appointments, managing medical services, and streamlining patient care.",
+    },
+    
       {
       title: "Catch Recruitment",
       image: "/Projects/catch.png",
-      liveDemo: "https://catchrecruitment.com/",
+      CaseStudy: "https://recruitmentcasestudy.vercel.app/",
       technologies: [
         "React",
         "Next.js",
@@ -165,6 +174,15 @@ export function PortfolioCarousel() {
       ],
       description:
         "A digital storytelling platform built to present Palestinian stories and cultural content through an immersive web experience.",
+    },
+    
+     {
+      title: "Affinity Labs",
+      image: "/Projects/labs.png",
+      liveDemo: "https://affinitylabs.ai/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "Affinity Labs empowers category-defining creators to build and scale software-led companies. Instead of traditional brand deals, we partner with creators to own equity in tech products tailored to their communities. From concept to launch, we handle the engine so creators can build with their audience.",
     },
     
      {
