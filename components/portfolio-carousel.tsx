@@ -126,6 +126,15 @@ export function PortfolioCarousel() {
         "A digital healthcare platform for booking appointments, managing medical services, and streamlining patient care.",
     },
     
+        {
+      title: "SPA Booking System",
+      image: "/Projects/spa.jpg",
+      CaseStudy: "https://spacasestudy.vercel.app/",
+      technologies: ["Angular", "Spring Boot", "PostgreSQL ", "AWS"],
+      description:
+        "A complete appointment-booking system for Lena Beauty Spa. Customers register, verify their email, choose a service and pick a free time slot, then receive an automated confirmation and reminders. They can update, reschedule or cancel from their account. An admin dashboard covers bookings, customers, services, time slots and business analytics. The platform supports English and Vietnamese, is fully responsive, and runs on AWS with auto-scaling servers, a Multi-AZ database, a CDN and CloudWatch monitoring.",
+    },
+    
       {
       title: "Catch Recruitment",
       image: "/Projects/catch.png",
