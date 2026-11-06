@@ -43,6 +43,7 @@ const copy = {
 
 export default function Page() {
   const [entered, setEntered] = useState(false)
+  const [showMusicPrompt, setShowMusicPrompt] = useState(false)
   const [activeNav, setActiveNav] = useState<'home' | 'services' | 'industries' | 'portfolio' | 'process' | 'testimonials' | 'team' | 'faq' | 'about' | 'contact'>('home')
   const particlesActive = true
   const [hoveredNav, setHoveredNav] = useState<(typeof NAV_KEYS)[number] | null>(null)
@@ -165,19 +166,6 @@ export default function Page() {
     if (started.current) return
     started.current = true
 
-    // Play audio
-    if (!audioRef.current) {
-      audioRef.current = new Audio('/music.mp3')
-      audioRef.current.loop = true
-      audioRef.current.volume = 0.5
-    }
-    
-    audioRef.current.play().then(() => {
-      setIsPlaying(true)
-    }).catch((error) => {
-      console.log('Audio play failed:', error)
-    })
-
     const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
 
     // Phase 1: Logo expands proportionally from diamond center as axis (no displacement, no drift)
@@ -200,7 +188,26 @@ export default function Page() {
     tl.to(heroRef.current, { pointerEvents: 'none', duration: 0 }, 2.0)
     tl.to(siteRef.current, { pointerEvents: 'auto', duration: 0 }, 3.2)
     // Unlock scrolling after entry animation completes, second screen can then scroll
-    tl.call(() => setEntered(true), undefined, 3.4)
+    tl.call(() => {
+      setEntered(true)
+      setShowMusicPrompt(true)
+    }, undefined, 3.4)
+  }
+
+  const handlePlayMusic = () => {
+    if (!audioRef.current) {
+      audioRef.current = new Audio('/music.mp3')
+      audioRef.current.loop = true
+      audioRef.current.volume = 0.5
+    }
+
+    audioRef.current.play().then(() => {
+      setIsPlaying(true)
+      setIsMuted(false)
+      setShowMusicPrompt(false)
+    }).catch(() => {
+      setIsPlaying(false)
+    })
   }
 
   const toggleMute = () => {
@@ -626,6 +633,41 @@ export default function Page() {
 
       {/* Footer */}
       <SiteFooter />
+
+      {showMusicPrompt && (
+        <div className="fixed inset-0 z-[120] flex items-center justify-center bg-black/75 px-4 py-6 backdrop-blur-md" role="presentation">
+          <section
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="music-prompt-title"
+            className="relative w-full max-w-sm overflow-hidden rounded-xl border border-white/15 bg-[#121414] p-6 text-center shadow-2xl sm:p-8"
+          >
+            <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full border border-[#c8e6d9]/30 bg-[#c8e6d9]/10 text-[#c8e6d9]">
+              <Volume2 className="h-5 w-5" strokeWidth={1.8} />
+            </div>
+            <p className="mt-5 text-[11px] font-semibold uppercase text-[#c8e6d9]">A little atmosphere</p>
+            <h2 id="music-prompt-title" className="mt-2 font-brand text-2xl font-black text-white">Play the soundtrack?</h2>
+            <p className="mt-2 text-sm leading-relaxed text-white/65">The music is completely optional. You can change your choice anytime.</p>
+            <div className="mt-6 grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={handlePlayMusic}
+                className="inline-flex min-h-11 items-center justify-center gap-2 rounded-full bg-[#c8e6d9] px-4 text-sm font-semibold text-[#1e1f1f] transition hover:bg-[#dff3e8]"
+              >
+                <Volume2 className="h-4 w-4" />
+                Play music
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowMusicPrompt(false)}
+                className="min-h-11 rounded-full border border-white/20 px-4 text-sm font-semibold text-white/80 transition hover:border-white/40 hover:bg-white/5 hover:text-white"
+              >
+                No thanks
+              </button>
+            </div>
+          </section>
+        </div>
+      )}
     </main>
   )
 }

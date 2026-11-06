@@ -5,7 +5,7 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
-  --font-brand: var(--font-noto-sans-sc);
+  --font-brand: var(--font-geist-sans);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);

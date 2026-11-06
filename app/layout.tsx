@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { Geist, Geist_Mono, Noto_Sans_SC } from 'next/font/google'
+import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { ServiceWorkerRegistration } from '@/components/service-worker-registration'
 
@@ -11,12 +11,6 @@ const geistSans = Geist({
 const geistMono = Geist_Mono({
   subsets: ['latin'],
   variable: '--font-geist-mono',
-})
-
-const notoSansSC = Noto_Sans_SC({
-  subsets: ['latin'],
-  weight: ['700', '900'],
-  variable: '--font-noto-sans-sc',
 })
 
 export const metadata: Metadata = {
@@ -195,7 +189,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </head>
-      <body className={`${geistSans.variable} ${geistMono.variable} ${notoSansSC.variable} font-sans antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
         <ServiceWorkerRegistration />
         {children}
       </body>
