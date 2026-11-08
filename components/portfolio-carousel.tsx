@@ -107,6 +107,15 @@ export function PortfolioCarousel() {
       description:
         "An Arabic accounting management system designed to organize financial records, transactions, and essential business accounting workflows.",
     },
+    
+        {
+      title: "HRMS System",
+      image: "/Projects/hr.jpg",
+      CaseStudy: "https://hrms-case-study.vercel.app/",
+      technologies: ["React", "MongoDB", "Express ", "Tailwind, Zod"],
+      description:
+        "HRMS: a full-stack Human Resource Management System that manages employees, attendance, leave and payroll. Role-based access (Admin, HR, Employee) with JWT authentication, automatic leave balances, attendance-based salary calculation and downloadable PDF payslips. Built with React, TypeScript, Node.js, Express and MongoDB.",
+    },
 
     {
       title: "Super Market",
