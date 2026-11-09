@@ -111,10 +111,19 @@ export function PortfolioCarousel() {
         {
       title: "HRMS System",
       image: "/Projects/hr.jpg",
-      CaseStudy: "https://hrms-case-study.vercel.app/",
+      CaseStudy: "https://hrms-case-study.vercel.app/            ",
       technologies: ["React", "MongoDB", "Express ", "Tailwind, Zod"],
       description:
         "HRMS: a full-stack Human Resource Management System that manages employees, attendance, leave and payroll. Role-based access (Admin, HR, Employee) with JWT authentication, automatic leave balances, attendance-based salary calculation and downloadable PDF payslips. Built with React, TypeScript, Node.js, Express and MongoDB.",
+    },
+    
+     {
+      title: "Digital Menu",
+      image: "/Projects/menu.png",
+      CaseStudy: "https://digital-eight-iota.vercel.app/",
+      technologies: ["HTML", "CSS", "JS ", "Supabase, PostgreSQL, Android (payment notification integration)"],
+      description:
+        "A modern digital restaurant menu and management system that allows customers to browse products, place orders, and make payments online. It features a powerful admin dashboard for managing products, categories, orders, and promotions, with multi-language support, QR code integration, and automated payment verification.",
     },
 
     {
