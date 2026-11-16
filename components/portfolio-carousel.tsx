@@ -18,7 +18,7 @@ export function PortfolioCarousel() {
     // =========================================================
 
       {
-      title: "Tabibi Clinic Management",
+      title: "Clinic Management",
       image: "/Projects/clinic.mp4",
       technologies: ["Flutter"],
       CaseStudy: "https://case-study-chi-tan.vercel.app/",
@@ -38,6 +38,33 @@ export function PortfolioCarousel() {
       ],
       description:
         "A comprehensive school management platform designed to organize academic operations, users, administration, and educational workflows.",
+    },
+     {
+      title: " Ones ERP",
+      image: "/Projects/erp.jpg",
+      CaseStudy: "https://erpcasestudy.vercel.app/",
+      technologies: [
+        "Django 6 ",
+        "React 19",
+        "PostgreSQL",
+        "Tailwind CSS",
+      ],
+      description:
+        "Ones ERP: a full-stack internal ERP that replaces paper ledgers with one system for customers, orders, inventory and expenses. Dispatching an order automatically updates stock through a movement ledger, and a live dashboard shows pending orders, sales and stock by variant.",
+    },
+     {
+      title: "Pharmacy Management & POS",
+      image: "/Projects/pharmacy.jpg",
+      CaseStudy: "https://pharmacymanagmentcasestudy.vercel.app/",
+      technologies: [
+        "React",
+        "FastAPI (Python)",
+        "SQLAlchemy",
+        "Docker",
+        "JWT",
+      ],
+      description:
+        "A complete pharmacy platform covering prescriptions, medication inventory, employee accounts, audit logs and a point-of-sale. Four role-based dashboards (Manager, Pharmacist, Technician, Cashier), expiry and low-stock alerts, JWT security with account lockout, and cash or card checkout.",
     },
 
     {
