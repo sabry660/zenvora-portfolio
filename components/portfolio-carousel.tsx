@@ -199,6 +199,15 @@ export function PortfolioCarousel() {
     //---------------------------------------
 
     {
+      title: "FERROVA",
+      image: "/Projects/ferrova.png",
+      liveDemo: "https://ferrova.vercel.app//",
+      technologies: ["React", "GSAP, Three.js"],
+      description:
+        "A modern fashion and apparel brand featuring a sleek e-commerce storefront, minimalist aesthetic, and seamless online shopping experience.",
+    },
+    
+      {
       title: "Coach Gym",
       image: "/Projects/coach-gym.jpg",
       liveDemo: "https://gym-theta-green.vercel.app/",
