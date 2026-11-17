@@ -582,7 +582,7 @@ export function PortfolioCarousel() {
     },
   ], [])
 
-  const landingPageStartIndex = projects.findIndex((project) => project.title === 'Coach Gym')
+  const landingPageStartIndex = projects.findIndex((project) => project.title === 'FERROVA')
   const visibleProjects = activeCategory === 'systems'
     ? projects.slice(0, landingPageStartIndex)
     : activeCategory === 'landingPages'
