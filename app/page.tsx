@@ -12,6 +12,7 @@ import { TeamCarousel } from '../components/team-carousel'
 import { TechStackMarquee } from '../components/tech-stack-marquee'
 import { HeroCodeAnimation } from '../components/hero-code-animation'
 import { IndustriesSection } from '../components/industries-section'
+import { PackagesSection } from '../components/packages-section'
 import { ProcessSection } from '../components/process-section'
 import { FAQSection } from '../components/faq-section'
 import { MetricsSection } from '../components/metrics-section'
@@ -23,9 +24,13 @@ const WHATSAPP_NUMBER = '201550193699'
 const copy = {
   navHome: 'Home',
   navServices: 'Services',
+  navMetrics: 'Metrics',
   navIndustries: 'Industries',
+  navPackages: 'Packages',
   navPortfolio: 'Portfolio',
   navProcess: 'Process',
+  navSecurity: 'Security',
+  navTechStack: 'Tech Stack',
   navTestimonials: 'Testimonials',
   navTeam: 'Team',
   navFAQ: 'FAQ',
@@ -44,7 +49,7 @@ const copy = {
 export default function Page() {
   const [entered, setEntered] = useState(false)
   const [showMusicPrompt, setShowMusicPrompt] = useState(false)
-  const [activeNav, setActiveNav] = useState<'home' | 'services' | 'industries' | 'portfolio' | 'process' | 'testimonials' | 'team' | 'faq' | 'about' | 'contact'>('home')
+  const [activeNav, setActiveNav] = useState<'home' | 'services' | 'metrics' | 'industries' | 'packages' | 'portfolio' | 'process' | 'security' | 'tech-stack' | 'testimonials' | 'team' | 'faq' | 'about' | 'contact'>('home')
   const particlesActive = true
   const [hoveredNav, setHoveredNav] = useState<(typeof NAV_KEYS)[number] | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -53,7 +58,7 @@ export default function Page() {
   const [isPlaying, setIsPlaying] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  const NAV_KEYS = ['home', 'services', 'industries', 'portfolio', 'process', 'testimonials', 'team', 'faq', 'about', 'contact'] as const
+  const NAV_KEYS = ['home', 'services', 'metrics', 'industries', 'packages', 'portfolio', 'process', 'security', 'tech-stack', 'testimonials', 'team', 'faq', 'about', 'contact'] as const
 
   const attract = useRef({ value: 0 }) // Constant 0: particles move naturally throughout, no gathering or bursting
   const logoRef = useRef<HTMLSpanElement>(null)
@@ -63,9 +68,11 @@ export default function Page() {
   const servicesRef = useRef<HTMLDivElement>(null)
   const metricsRef = useRef<HTMLDivElement>(null)
   const industriesRef = useRef<HTMLDivElement>(null)
+  const packagesRef = useRef<HTMLDivElement>(null)
   const portfolioRef = useRef<HTMLDivElement>(null)
   const processRef = useRef<HTMLDivElement>(null)
   const securityRef = useRef<HTMLDivElement>(null)
+  const techStackRef = useRef<HTMLDivElement>(null)
   const testimonialsRef = useRef<HTMLDivElement>(null)
   const teamRef = useRef<HTMLDivElement>(null)
   const faqRef = useRef<HTMLDivElement>(null)
@@ -78,26 +85,36 @@ export default function Page() {
 
   // Scroll linkage: readingLine detects current section, activeNav follows
   useEffect(() => {
+    if (!entered) return
+
     let frame = 0
     const updateActiveNav = () => {
       frame = 0
       const readingLine = window.scrollY + window.innerHeight * 0.5
       const sections = [
         { key: 'services' as const, element: servicesRef.current },
+        { key: 'metrics' as const, element: metricsRef.current },
         { key: 'industries' as const, element: industriesRef.current },
+        { key: 'packages' as const, element: packagesRef.current },
         { key: 'portfolio' as const, element: portfolioRef.current },
         { key: 'process' as const, element: processRef.current },
+        { key: 'security' as const, element: securityRef.current },
+        { key: 'tech-stack' as const, element: techStackRef.current },
         { key: 'testimonials' as const, element: testimonialsRef.current },
         { key: 'team' as const, element: teamRef.current },
         { key: 'faq' as const, element: faqRef.current },
       ]
-      let nextActive: 'home' | 'services' | 'industries' | 'portfolio' | 'process' | 'testimonials' | 'team' | 'faq' = 'home'
+      let nextActive: 'home' | 'services' | 'metrics' | 'industries' | 'packages' | 'portfolio' | 'process' | 'security' | 'tech-stack' | 'testimonials' | 'team' | 'faq' = 'home'
       for (const section of sections) {
         if (section.element && readingLine >= section.element.offsetTop) {
           nextActive = section.key
         }
       }
       setActiveNav(nextActive)
+      const nextHash = nextActive === 'home' ? `${window.location.pathname}${window.location.search}` : `#${nextActive}`
+      if (window.location.hash !== (nextActive === 'home' ? '' : `#${nextActive}`)) {
+        window.history.replaceState(null, '', nextHash)
+      }
     }
     const requestActiveNavUpdate = () => {
       if (!frame) frame = window.requestAnimationFrame(updateActiveNav)
@@ -108,7 +125,7 @@ export default function Page() {
       window.removeEventListener('scroll', requestActiveNavUpdate)
       if (frame) window.cancelAnimationFrame(frame)
     }
-  }, [])
+  }, [entered])
 
   // Handle hash routing on mount and hash change
   useEffect(() => {
@@ -117,15 +134,27 @@ export default function Page() {
       if (hash === 'services' && servicesRef.current) {
         servicesRef.current.scrollIntoView({ behavior: 'smooth' })
         setActiveNav('services')
+      } else if (hash === 'metrics' && metricsRef.current) {
+        metricsRef.current.scrollIntoView({ behavior: 'smooth' })
+        setActiveNav('metrics')
       } else if (hash === 'industries' && industriesRef.current) {
         industriesRef.current.scrollIntoView({ behavior: 'smooth' })
         setActiveNav('industries')
+      } else if (hash === 'packages' && packagesRef.current) {
+        packagesRef.current.scrollIntoView({ behavior: 'smooth' })
+        setActiveNav('packages')
       } else if (hash === 'portfolio' && portfolioRef.current) {
         portfolioRef.current.scrollIntoView({ behavior: 'smooth' })
         setActiveNav('portfolio')
       } else if (hash === 'process' && processRef.current) {
         processRef.current.scrollIntoView({ behavior: 'smooth' })
         setActiveNav('process')
+      } else if (hash === 'security' && securityRef.current) {
+        securityRef.current.scrollIntoView({ behavior: 'smooth' })
+        setActiveNav('security')
+      } else if (hash === 'tech-stack' && techStackRef.current) {
+        techStackRef.current.scrollIntoView({ behavior: 'smooth' })
+        setActiveNav('tech-stack')
       } else if (hash === 'testimonials' && testimonialsRef.current) {
         testimonialsRef.current.scrollIntoView({ behavior: 'smooth' })
         setActiveNav('testimonials')
@@ -285,7 +314,7 @@ export default function Page() {
             <div className="hidden items-center gap-3 sm:gap-5 text-white/75 md:flex xl:gap-8">
               {/* Navigation menu: underline indicator (hover follows, active always lit) */}
               <div className="flex items-center gap-5 py-1 xl:gap-8">
-                {[copy.navHome, copy.navServices, copy.navIndustries, copy.navPortfolio, copy.navProcess, copy.navTestimonials, copy.navTeam, copy.navFAQ, copy.navAbout, copy.navContact].map((label, i) => {
+                {[copy.navHome, copy.navServices, copy.navMetrics, copy.navIndustries, copy.navPackages, copy.navPortfolio, copy.navProcess, copy.navSecurity, copy.navTechStack, copy.navTestimonials, copy.navTeam, copy.navFAQ, copy.navAbout, copy.navContact].map((label, i) => {
                   const key = NAV_KEYS[i]
                   const active = activeNav === key
                   const showIndicator = hoveredNav ? hoveredNav === key : active
@@ -307,10 +336,20 @@ export default function Page() {
                           servicesRef.current?.scrollIntoView({ behavior: 'smooth' })
                           window.location.hash = 'services'
                         }
+                        if (key === 'metrics') {
+                          setActiveNav('metrics')
+                          metricsRef.current?.scrollIntoView({ behavior: 'smooth' })
+                          window.location.hash = 'metrics'
+                        }
                         if (key === 'industries') {
                           setActiveNav('industries')
                           industriesRef.current?.scrollIntoView({ behavior: 'smooth' })
                           window.location.hash = 'industries'
+                        }
+                        if (key === 'packages') {
+                          setActiveNav('packages')
+                          packagesRef.current?.scrollIntoView({ behavior: 'smooth' })
+                          window.location.hash = 'packages'
                         }
                         if (key === 'portfolio') {
                           setActiveNav('portfolio')
@@ -321,6 +360,16 @@ export default function Page() {
                           setActiveNav('process')
                           processRef.current?.scrollIntoView({ behavior: 'smooth' })
                           window.location.hash = 'process'
+                        }
+                        if (key === 'security') {
+                          setActiveNav('security')
+                          securityRef.current?.scrollIntoView({ behavior: 'smooth' })
+                          window.location.hash = 'security'
+                        }
+                        if (key === 'tech-stack') {
+                          setActiveNav('tech-stack')
+                          techStackRef.current?.scrollIntoView({ behavior: 'smooth' })
+                          window.location.hash = 'tech-stack'
                         }
                         if (key === 'testimonials') {
                           setActiveNav('testimonials')
@@ -405,7 +454,7 @@ export default function Page() {
             </button>
             <div className="flex flex-col gap-6 sm:gap-8 text-center">
               {NAV_KEYS.map((key) => {
-                const label = [copy.navHome, copy.navServices, copy.navIndustries, copy.navPortfolio, copy.navProcess, copy.navTestimonials, copy.navTeam, copy.navFAQ, copy.navAbout, copy.navContact][NAV_KEYS.indexOf(key)]
+                const label = [copy.navHome, copy.navServices, copy.navMetrics, copy.navIndustries, copy.navPackages, copy.navPortfolio, copy.navProcess, copy.navSecurity, copy.navTechStack, copy.navTestimonials, copy.navTeam, copy.navFAQ, copy.navAbout, copy.navContact][NAV_KEYS.indexOf(key)]
                 const active = activeNav === key
                 return (
                   <button
@@ -423,10 +472,20 @@ export default function Page() {
                         servicesRef.current?.scrollIntoView({ behavior: 'smooth' })
                         window.location.hash = 'services'
                       }
+                      if (key === 'metrics') {
+                        setActiveNav('metrics')
+                        metricsRef.current?.scrollIntoView({ behavior: 'smooth' })
+                        window.location.hash = 'metrics'
+                      }
                       if (key === 'industries') {
                         setActiveNav('industries')
                         industriesRef.current?.scrollIntoView({ behavior: 'smooth' })
                         window.location.hash = 'industries'
+                      }
+                      if (key === 'packages') {
+                        setActiveNav('packages')
+                        packagesRef.current?.scrollIntoView({ behavior: 'smooth' })
+                        window.location.hash = 'packages'
                       }
                       if (key === 'portfolio') {
                         setActiveNav('portfolio')
@@ -437,6 +496,16 @@ export default function Page() {
                         setActiveNav('process')
                         processRef.current?.scrollIntoView({ behavior: 'smooth' })
                         window.location.hash = 'process'
+                      }
+                      if (key === 'security') {
+                        setActiveNav('security')
+                        securityRef.current?.scrollIntoView({ behavior: 'smooth' })
+                        window.location.hash = 'security'
+                      }
+                      if (key === 'tech-stack') {
+                        setActiveNav('tech-stack')
+                        techStackRef.current?.scrollIntoView({ behavior: 'smooth' })
+                        window.location.hash = 'tech-stack'
                       }
                       if (key === 'testimonials') {
                         setActiveNav('testimonials')
@@ -596,6 +665,11 @@ export default function Page() {
         <IndustriesSection />
       </div>
 
+      {/* Services & Packages */}
+      <div ref={packagesRef} className="relative z-20">
+        <PackagesSection />
+      </div>
+
       {/* Portfolio Section */}
       <div ref={portfolioRef} className="relative z-20">
         <PortfolioCarousel />
@@ -612,7 +686,7 @@ export default function Page() {
       </div>
 
       {/* Tech Stack Section */}
-      <div className="relative z-20">
+      <div ref={techStackRef} className="relative z-20">
         <TechStackMarquee />
       </div>
 

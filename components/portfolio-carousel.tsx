@@ -52,6 +52,20 @@ export function PortfolioCarousel() {
       description:
         "Ones ERP: a full-stack internal ERP that replaces paper ledgers with one system for customers, orders, inventory and expenses. Dispatching an order automatically updates stock through a movement ledger, and a live dashboard shows pending orders, sales and stock by variant.",
     },
+      {
+      title: " SalonFlow",
+      image: "/Projects/salonflow.jpg",
+      CaseStudy: "https://salonflowcasestudy.vercel.app/",
+      technologies: [
+        "MERN Stack",
+        "React 19",
+        "MongoDB",
+        "Tailwind CSS",
+      ],
+      description:
+        "SalonFlow: a full-stack salon management platform with a 5-step online booking wizard, Razorpay payments, real-time notifications, an AI assistant and role-based dashboards for customers, staff and owners. Features inventory with low-stock alerts, analytics, an installable PWA and more.",
+    },
+    
      {
       title: "Pharmacy Management & POS",
       image: "/Projects/pharmacy.jpg",
@@ -162,7 +176,7 @@ export function PortfolioCarousel() {
         "A supermarket e-commerce experience for browsing products and managing everyday shopping.",
     },
     
-     {
+    {
       title: "Hospital Managment System",
       image: "/Projects/hospital.jpg",
       CaseStudy: "https://hospitalcasestudy.vercel.app/",
@@ -214,6 +228,15 @@ export function PortfolioCarousel() {
       technologies: ["React", "Responsive Web Design"],
       description:
         "A personal fitness coaching landing page featuring training programs, fitness goals, pricing, gallery, blog content, and contact information.",
+    },
+
+      {
+      title: "Savant EyeWear",
+      image: "/Projects/savant.png",
+      liveDemo: "https://eyewearstore-alpha.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A modern eyewear brand landing page designed to showcase products, collections, and brand identity through a visually engaging digital experience.",
     },
     
        {
