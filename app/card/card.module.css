@@ -1,0 +1,494 @@
+.page {
+  --card-white: #f5f5f2;
+  --card-muted: #9c9e9c;
+  --card-line: rgb(255 255 255 / 13%);
+  min-height: 100svh;
+  overflow: hidden;
+  background:
+    linear-gradient(115deg, transparent 0 34%, rgb(255 255 255 / 2.2%) 48%, transparent 62%),
+    repeating-linear-gradient(90deg, transparent 0 79px, rgb(255 255 255 / 1.8%) 80px),
+    #080909;
+  color: var(--card-white);
+  font-family: var(--font-geist-sans), sans-serif;
+}
+
+.frame {
+  width: min(100% - 32px, 1120px);
+  margin-inline: auto;
+  padding: 48px 0 24px;
+}
+
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  animation: card-enter 700ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.logoStage {
+  position: relative;
+  display: grid;
+  width: min(74vw, 260px);
+  aspect-ratio: 1;
+  place-items: center;
+  margin-bottom: 4px;
+  isolation: isolate;
+  perspective: 900px;
+}
+
+.logoLight {
+  position: absolute;
+  z-index: -1;
+  inset: 20% 12%;
+  transform: rotateX(68deg) translateY(28%);
+  border-radius: 50%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 15%), transparent);
+  filter: blur(26px);
+  opacity: 0.55;
+  animation: light-breathe 5s ease-in-out infinite;
+}
+
+.logo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  filter: drop-shadow(0 14px 22px rgb(0 0 0 / 62%)) drop-shadow(0 0 16px rgb(255 255 255 / 12%));
+  transform: translateZ(0);
+  animation: logo-arrive 900ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.eyebrow,
+.sectionIndex,
+.availability,
+.footer span {
+  font-size: 9px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+}
+
+.eyebrow {
+  margin: 13px 0 0;
+  color: #b6b8b5;
+}
+
+.brandName {
+  margin: 12px 0 0;
+  font-size: clamp(22px, 4vw, 38px);
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: 0.02em;
+}
+
+.tagline {
+  margin: 11px 0 0;
+  color: #b9bbb8;
+  font-size: 10px;
+  font-weight: 500;
+  letter-spacing: 0.22em;
+}
+
+.websiteLink {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  gap: 9px;
+  margin-top: 20px;
+  color: #dedfdd;
+  font-size: 13px;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.websiteLink:hover {
+  color: #fff;
+}
+
+.contacts {
+  margin-top: 54px;
+}
+
+.sectionHeading {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 17px;
+  margin-bottom: 20px;
+}
+
+.sectionIndex {
+  color: #90928f;
+  white-space: nowrap;
+}
+
+.sectionHeading h2 {
+  margin: 0;
+  font-size: clamp(13px, 1.8vw, 16px);
+  font-weight: 500;
+  letter-spacing: 0.13em;
+  text-align: center;
+}
+
+.headingRule,
+.visitRule {
+  height: 1px;
+  background: var(--card-line);
+}
+
+.contactGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.contactCard {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--card-line);
+  border-radius: 8px;
+  background: linear-gradient(145deg, rgb(255 255 255 / 5%), rgb(255 255 255 / 1%) 58%), #0c0d0d;
+  box-shadow: inset 0 1px rgb(255 255 255 / 4%), 0 18px 45px rgb(0 0 0 / 15%);
+  animation: card-enter 650ms cubic-bezier(0.2, 0.75, 0.25, 1) both;
+}
+
+.cardTopline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.contactNumber {
+  color: #c3c5c2;
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+}
+
+.availability {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #828480;
+  font-size: 7px;
+  letter-spacing: 0.11em;
+  white-space: nowrap;
+}
+
+.statusDot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #d7d9d4;
+  box-shadow: 0 0 9px rgb(255 255 255 / 35%);
+}
+
+.contactName {
+  margin: 22px 0 3px;
+  font-size: clamp(23px, 2.5vw, 29px);
+  font-weight: 550;
+  letter-spacing: 0.01em;
+}
+
+.phoneNumber {
+  display: inline-block;
+  min-height: 32px;
+  color: #c3c5c2;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  text-decoration: none;
+  transition: color 160ms ease;
+}
+
+.phoneNumber:hover {
+  color: #fff;
+}
+
+.actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 22px;
+}
+
+.primaryAction,
+.secondaryAction,
+.saveAction {
+  display: inline-flex;
+  min-width: 0;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  border-radius: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.primaryAction {
+  border: 1px solid var(--card-white);
+  background: var(--card-white);
+  color: #111212;
+}
+
+.primaryAction:hover {
+  transform: translateY(-1px);
+  background: #fff;
+}
+
+.secondaryAction,
+.saveAction {
+  border: 1px solid rgb(255 255 255 / 20%);
+  background: rgb(255 255 255 / 3%);
+  color: var(--card-white);
+}
+
+.secondaryAction:hover,
+.saveAction:hover {
+  transform: translateY(-1px);
+  border-color: rgb(255 255 255 / 55%);
+  background: rgb(255 255 255 / 9%);
+}
+
+.saveAction {
+  grid-column: 1 / -1;
+}
+
+.primaryAction:focus-visible,
+.secondaryAction:focus-visible,
+.saveAction:focus-visible,
+.websiteLink:focus-visible,
+.visitButton:focus-visible,
+.phoneNumber:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+.visit {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-top: 34px;
+}
+
+.visitButton {
+  display: inline-flex;
+  min-height: 50px;
+  flex: 0 0 auto;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  padding: 0 22px;
+  border: 1px solid rgb(255 255 255 / 65%);
+  border-radius: 5px;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  transition: background 180ms ease, color 180ms ease, transform 180ms ease;
+}
+
+.visitButton:hover {
+  transform: translateY(-1px);
+  background: #fff;
+  color: #101111;
+}
+
+.visitRule {
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 39px;
+  padding-top: 17px;
+  border-top: 1px solid var(--card-line);
+  color: #777a76;
+}
+
+.footer span {
+  font-size: 8px;
+  letter-spacing: 0.1em;
+}
+
+.footer a {
+  color: #c4c6c2;
+  font-size: 11px;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  color: #fff;
+}
+
+@keyframes card-enter {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes logo-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(8px) rotateX(7deg) scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) rotateX(0) scale(1);
+  }
+}
+
+@keyframes light-breathe {
+  0%,
+  100% {
+    opacity: 0.34;
+  }
+  50% {
+    opacity: 0.68;
+  }
+}
+
+@media (min-width: 760px) {
+  .frame {
+    padding-top: 38px;
+  }
+
+  .logoStage {
+    width: 220px;
+  }
+
+  .contacts {
+    margin-top: 43px;
+  }
+}
+
+@media (max-width: 700px) {
+  .frame {
+    width: min(100% - 28px, 520px);
+    padding-top: 25px;
+  }
+
+  .logoStage {
+    width: min(66vw, 220px);
+  }
+
+  .contacts {
+    margin-top: 39px;
+  }
+
+  .sectionHeading {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    text-align: center;
+  }
+
+  .sectionIndex {
+    font-size: 8px;
+  }
+
+  .sectionHeading h2 {
+    font-size: 13px;
+  }
+
+  .headingRule {
+    width: 44px;
+    margin-inline: auto;
+  }
+
+  .contactGrid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 9px;
+  }
+
+  .contactCard {
+    padding: 16px;
+  }
+
+  .contactName {
+    margin-top: 16px;
+  }
+
+  .actions {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 6px;
+    margin-top: 15px;
+  }
+
+  .primaryAction,
+  .secondaryAction,
+  .saveAction {
+    min-height: 41px;
+    gap: 5px;
+    padding-inline: 5px;
+    font-size: 10px;
+  }
+
+  .saveAction {
+    grid-column: auto;
+  }
+
+  .visit {
+    gap: 10px;
+    margin-top: 26px;
+  }
+
+  .visitButton {
+    min-height: 47px;
+    padding-inline: 14px;
+    font-size: 10px;
+  }
+
+  .footer {
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 28px;
+  }
+}
+
+@media (max-width: 360px) {
+  .availability {
+    font-size: 6px;
+    letter-spacing: 0.08em;
+  }
+
+  .primaryAction,
+  .secondaryAction,
+  .saveAction {
+    font-size: 9px;
+  }
+
+  .primaryAction svg,
+  .secondaryAction svg,
+  .saveAction svg {
+    width: 13px;
+    height: 13px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .contactCard,
+  .logo,
+  .logoLight {
+    animation: none;
+  }
+
+  .primaryAction,
+  .secondaryAction,
+  .saveAction,
+  .websiteLink,
+  .visitButton {
+    transition: none;
+  }
+}
