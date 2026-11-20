@@ -19,7 +19,7 @@ export function PortfolioCarousel() {
 
       {
       title: "Clinic Management",
-      image: "/Projects/clinic.mp4",
+      image: "/Projects/clinic.jpg",
       technologies: ["Flutter"],
       CaseStudy: "https://case-study-chi-tan.vercel.app/",
       description:
@@ -203,7 +203,7 @@ export function PortfolioCarousel() {
 
     {
       title: "POSR Restaurant",
-      image: "/Projects/posr.mp4",
+      image: "/Projects/posr.jpg",
       CaseStudy: "https://restaurantposcasestudy.vercel.app/",
       technologies: [
         "React",
