@@ -18,19 +18,19 @@ export const metadata: Metadata = {
 
 const contacts = [
   {
-    name: 'Mohamed',
+    name: 'Mohamed Sabry',
     phone: '0120 128 9813',
     international: '+201201289813',
     whatsapp: '201201289813',
   },
   {
-    name: 'Omar',
-    phone: '0120 051 8176',
-    international: '+201200518176',
-    whatsapp: '201200518176',
+    name: 'Omar Yasser',
+    phone: '010 174 99342',
+    international: '+20 10 17499342',
+    whatsapp: '201017499342',
   },
   {
-    name: 'Ibrahim',
+    name: 'Ibrahim Wael',
     phone: '0121 061 5171',
     international: '+201210615171',
     whatsapp: '201210615171',
