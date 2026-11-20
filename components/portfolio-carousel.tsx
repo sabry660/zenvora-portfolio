@@ -40,7 +40,7 @@ export function PortfolioCarousel() {
         "A comprehensive school management platform designed to organize academic operations, users, administration, and educational workflows.",
     },
      {
-      title: " Ones ERP",
+      title: "Ones ERP",
       image: "/Projects/erp.jpg",
       CaseStudy: "https://erpcasestudy.vercel.app/",
       technologies: [
@@ -51,6 +51,84 @@ export function PortfolioCarousel() {
       ],
       description:
         "Ones ERP: a full-stack internal ERP that replaces paper ledgers with one system for customers, orders, inventory and expenses. Dispatching an order automatically updates stock through a movement ledger, and a live dashboard shows pending orders, sales and stock by variant.",
+    },
+    {
+      title: "Patient Management System",
+      image: "/Projects/patient.jpg",
+      CaseStudy: "https://cliniccasestudy.vercel.app/",
+      technologies: [
+        "Django 5.2 ",
+        "Gunicorn",
+        "SQLite",
+        "Python",
+      ],
+      description:
+        "A full-featured, customizable patient management system for small and medium clinics. It covers reception, appointments, triage, consultations, prescriptions, laboratory, radiology services and billing, with 8 role-based staff accounts. Runs on the clinic's own network, so it keeps working during internet outages.",
+    },
+     {
+      title: "Case Box",
+      image: "/Projects/lawyer.jpg",
+      CaseStudy: "https://lawyercasestudy.vercel.app/",
+      technologies: [
+        "Django 5.2 ",
+        "PostgreSQL",
+        "React",
+        "Python",
+      ],
+      description:
+        "An integrated cloud-based web platform for managing law firms and legal cases, designed for independent lawyers and legal practices to organize court hearings, record real-time court proceedings, and manage documents—all while enforcing strict access controls at the database query level (ORM-level Query Scoping.",
+    },
+      {
+      title: "CRM",
+      image: "/Projects/crm.jpg",
+      CaseStudy: "https://crmcasestudy.vercel.app/",
+      technologies: [
+        "Uvicorn",
+        "PostgreSQL",
+        "React",
+        "Python",
+      ],
+      description:
+        "A full-featured customer relationship management (CRM) platform designed to help businesses manage customer interactions, track leads, and streamline sales processes.",
+    },
+     {
+      title: "Gym & Fitness Club Management System",
+      image: "/Projects/en-gym.jpg",
+      CaseStudy: "https://gymcasestudy1.vercel.app/",
+      technologies: [
+        "java",
+        "MySQL",
+        "React",
+        "spring boot",
+      ],
+      description:
+        "An integrated platform for managing gyms and fitness centers, built using a technology stack comprising Spring Boot 3.5 and React 18. The system encompasses member subscription management, trainer assignment and specialization, real-time daily floor attendance tracking, and financial collection and payment monitoring.",
+    },
+      {
+      title: "Drive X Car Rental",
+      image: "/Projects/drive-x.jpg",
+      CaseStudy: "https://carrentalcasestudy.vercel.app/",
+      technologies: [
+        "Node",
+        "MongoDB",
+        "React",
+        "Express",
+      ],
+      description:
+        "DriveX delivers an enterprise-grade car rental and fleet management ecosystem built on modern JavaScript foundations. With its robust conflict-free reservation engine, multi-branch showroom logistics, comprehensive driver verification, and dual-theme presentation, DriveX sets a benchmark for modern automotive digital platforms.",
+    },
+    {
+      title: "Inventory Pro",
+      image: "/Projects/inventory.jpg",
+      CaseStudy: "https://inventorycasestudy.vercel.app/",
+      technologies: [
+        "Node.js",
+        "React 19",
+        "MySQL",
+        "Express",
+      ],
+      description:
+        "InventoryPro: a full-stack inventory and sales management system. Sales invoices automatically decrease stock and purchases increase it, using MySQL transactions. Includes a printable invoice, low-stock alerts, revenue and top-customer reports, an inventory audit log and role-based access for Admin, Inventory Manager and Cashier.",
     },
       {
       title: " SalonFlow",
