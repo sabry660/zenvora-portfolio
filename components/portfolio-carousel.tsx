@@ -27,7 +27,7 @@ export function PortfolioCarousel() {
     },
     {
       title: "School Management System",
-      image: "/Projects/school.mp4",
+      image: "/Projects/school.jpg",
       CaseStudy: "https://schoolcasestudy.vercel.app/",
       technologies: [
         "Next.js",
@@ -92,7 +92,7 @@ export function PortfolioCarousel() {
         "A full-featured customer relationship management (CRM) platform designed to help businesses manage customer interactions, track leads, and streamline sales processes.",
     },
      {
-      title: "Gym & Fitness Club Management System",
+      title: "Gym Management System",
       image: "/Projects/en-gym.jpg",
       CaseStudy: "https://gymcasestudy1.vercel.app/",
       technologies: [
@@ -175,7 +175,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Logistics Management System",
-      image: "/Projects/logistics.mp4",
+      image: "/Projects/logistics.jpg",
       CaseStudy: "https://logisticscasestudy.vercel.app/",
       technologies: [
         "React",
