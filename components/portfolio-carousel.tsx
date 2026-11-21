@@ -53,7 +53,7 @@ export function PortfolioCarousel() {
         "Ones ERP: a full-stack internal ERP that replaces paper ledgers with one system for customers, orders, inventory and expenses. Dispatching an order automatically updates stock through a movement ledger, and a live dashboard shows pending orders, sales and stock by variant.",
     },
     {
-      title: "Patient Management System",
+      title: "Patient Management",
       image: "/Projects/patient.jpg",
       CaseStudy: "https://cliniccasestudy.vercel.app/",
       technologies: [
@@ -145,7 +145,7 @@ export function PortfolioCarousel() {
     },
     
      {
-      title: "Pharmacy Management & POS",
+      title: "Pharmacy Management",
       image: "/Projects/pharmacy.jpg",
       CaseStudy: "https://pharmacymanagmentcasestudy.vercel.app/",
       technologies: [
@@ -174,7 +174,7 @@ export function PortfolioCarousel() {
     },
 
     {
-      title: "Logistics Management System",
+      title: "Logistics System",
       image: "/Projects/logistics.jpg",
       CaseStudy: "https://logisticscasestudy.vercel.app/",
       technologies: [
@@ -255,7 +255,7 @@ export function PortfolioCarousel() {
     },
     
     {
-      title: "Hospital Managment System",
+      title: "Hospital Managment",
       image: "/Projects/hospital.jpg",
       CaseStudy: "https://hospitalcasestudy.vercel.app/",
       technologies: ["PHP", "Laravel", "MySQL", "Native FrontEnd"],
@@ -273,7 +273,7 @@ export function PortfolioCarousel() {
     },
     
       {
-      title: "Catch Recruitment",
+      title: "Recruitment Agency System",
       image: "/Projects/catch.png",
       CaseStudy: "https://recruitmentcasestudy.vercel.app/",
       technologies: [
