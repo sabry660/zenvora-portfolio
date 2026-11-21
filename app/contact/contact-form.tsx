@@ -5,7 +5,7 @@ import { InfoCard, InfoDl, InfoLink } from '@/components/info-page-shell'
 import { SiteFooter } from '@/components/site-footer'
 import { useState } from 'react'
 
-const WHATSAPP_NUMBER = '201550193699'
+const WHATSAPP_NUMBER = '201017499342'
 
 export default function ContactForm() {
   const [formData, setFormData] = useState({
@@ -67,7 +67,7 @@ export default function ContactForm() {
               },
               {
                 label: 'WhatsApp',
-                value: <InfoLink href="https://wa.me/201550193699">+20 155 019 3699</InfoLink>,
+                value: <InfoLink href="https://wa.me/201017499342">+20 155 019 3699</InfoLink>,
               },
               {
                 label: 'Facebook',

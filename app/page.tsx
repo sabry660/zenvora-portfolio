@@ -19,7 +19,7 @@ import { MetricsSection } from '../components/metrics-section'
 import { SecuritySection } from '../components/security-section'
 import { usePWAInstall } from '../hooks/use-pwa-install'
 
-const WHATSAPP_NUMBER = '201550193699'
+const WHATSAPP_NUMBER = '201017499342'
 
 const copy = {
   navHome: 'Home',
