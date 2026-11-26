@@ -3,11 +3,192 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { ArrowRight, ExternalLink, ChevronLeft, ChevronRight, Maximize2, X } from 'lucide-react'
 
+const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles: string[] }[] = [
+  {
+    id: 'restaurants',
+    title: 'Restaurants',
+    subtitle: 'Food brands, menus & dining experiences',
+    titles: [
+      'Aurelia Restaurant',
+      'Humble Rose',
+      'Drip & Garlic',
+      'Sushiman',
+      'Fast Food Restaurant',
+      'Burger House',
+      'Royal Burger',
+      'Seafood',
+      'Juicy',
+    ],
+  },
+  {
+    id: 'cafes-desserts',
+    title: 'Cafes & Desserts',
+    subtitle: 'Coffee shops, bakeries & sweet brands',
+    titles: [
+      'Mercelys Ice Cream',
+      'Grandma\'s Bakery',
+      'Noir Cafe',
+      'Amber Coffee',
+      'Cinematic Cafe',
+      'Cake Shop',
+      'Daily Drip Cafe',
+      'Cocktail',
+      'Volt Energy Drink',
+    ],
+  },
+  {
+    id: 'fashion-apparel',
+    title: 'Fashion & Apparel',
+    subtitle: 'Clothing brands, stores & tailoring',
+    titles: [
+      'FERROVA',
+      'Nike',
+      'Sneakers Store',
+      'Clothes Shop',
+      'Tailoring Studio',
+      'Savant EyeWear',
+    ],
+  },
+  {
+    id: 'retail-lifestyle',
+    title: 'Retail & Lifestyle',
+    subtitle: 'Shopping, home goods & personal brands',
+    titles: [
+      'Perfume',
+      'Furniture Store',
+      'Barber Shop',
+      'Super Market',
+    ],
+  },
+  {
+    id: 'gyms-fitness',
+    title: 'Gyms & Fitness',
+    subtitle: 'Training centers & fitness brands',
+    titles: [
+      'Coach Gym',
+      'Dawid Gym',
+      '3D Gym',
+    ],
+  },
+  {
+    id: 'health-medical',
+    title: 'Health & Medical',
+    subtitle: 'Wellness, nutrition & lab services',
+    titles: [
+      'MediCare Pro',
+      'DietBowl',
+      'Medical Lab',
+    ],
+  },
+  {
+    id: 'travel-hospitality',
+    title: 'Travel & Hospitality',
+    subtitle: 'Hotels, destinations & travel services',
+    titles: [
+      'HIBIS Hotels & Resorts',
+      'Visit Norway',
+      'Flight Company',
+    ],
+  },
+  {
+    id: 'events-celebrations',
+    title: 'Events & Celebrations',
+    subtitle: 'Weddings, photography & gifting',
+    titles: [
+      'Wedding Agency',
+      'Photography Studio',
+      'Flower Boutique',
+    ],
+  },
+  {
+    id: 'automotive',
+    title: 'Automotive',
+    subtitle: 'Vehicles, rentals & car services',
+    titles: [
+      'Car Hub',
+      'Car Dealership',
+      'Car Wash',
+    ],
+  },
+  {
+    id: 'home-improvement',
+    title: 'Home Improvement',
+    subtitle: 'Construction, renovation & home design',
+    titles: [
+      'Pool',
+      'Construction',
+      'Aluminum & Glass',
+      'Kitchen Studio',
+    ],
+  },
+  {
+    id: 'cleaning-repairs',
+    title: 'Cleaning & Repairs',
+    subtitle: 'Maintenance, pest control & appliance care',
+    titles: [
+      'Pro Cleaning',
+      'Pest Control',
+      'Dry Clean',
+      'Appliance Repair',
+    ],
+  },
+  {
+    id: 'tech-digital',
+    title: 'Tech & Digital',
+    subtitle: 'Products, platforms & digital companies',
+    titles: [
+      'CHUWI',
+      'MacBook',
+      'Brainwave',
+      'Affinity Labs',
+    ],
+  },
+  {
+    id: 'business-professional',
+    title: 'Business & Professional',
+    subtitle: 'Consulting, logistics & corporate services',
+    titles: [
+      'Logistics',
+      'Engineering',
+      'Accounting AccuLedger',
+      'Insurance',
+      'Solar Energy',
+      'Printing House',
+      'Printing Shop',
+    ],
+  },
+  {
+    id: 'education',
+    title: 'Education',
+    subtitle: 'Schools, courses & language learning',
+    titles: [
+      'Language School',
+      'School',
+      'Fluency Sprint',
+    ],
+  },
+  {
+    id: 'creative-business',
+    title: 'Creative & Business',
+    subtitle: 'Agencies, studios & creative platforms',
+    titles: [
+      'Palestinian Stories',
+      'Word of mouth',
+      'SAS Solutions',
+      'DesignCafe',
+      'Interior Studio',
+      'Buzz World',
+      'Digital Studio',
+    ],
+  },
+]
+
 export function PortfolioCarousel() {
   const [activeIndex, setActiveIndex] = useState(0)
   const [isVisible, setIsVisible] = useState(false)
   const [selectedMedia, setSelectedMedia] = useState<{ image: string; title: string } | null>(null)
   const [activeCategory, setActiveCategory] = useState<'systems' | 'landingPages' | null>(null)
+  const [activeSubcategory, setActiveSubcategory] = useState<string | null>(null)
   const [isPreparingMedia, setIsPreparingMedia] = useState(false)
   const [preparedMediaCount, setPreparedMediaCount] = useState(0)
   const carouselRef = useRef<HTMLDivElement>(null)
@@ -19,7 +200,7 @@ export function PortfolioCarousel() {
 
       {
       title: "Clinic Management",
-      image: "/Projects/clinic.jpg",
+      image: "/Projects/systems/clinic.jpg",
       technologies: ["Flutter"],
       CaseStudy: "https://case-study-chi-tan.vercel.app/",
       description:
@@ -27,7 +208,7 @@ export function PortfolioCarousel() {
     },
     {
       title: "School Management System",
-      image: "/Projects/school.jpg",
+      image: "/Projects/systems/school.jpg",
       CaseStudy: "https://schoolcasestudy.vercel.app/",
       technologies: [
         "Next.js",
@@ -41,7 +222,7 @@ export function PortfolioCarousel() {
     },
      {
       title: "Ones ERP",
-      image: "/Projects/erp.jpg",
+      image: "/Projects/systems/erp.jpg",
       CaseStudy: "https://erpcasestudy.vercel.app/",
       technologies: [
         "Django 6 ",
@@ -54,7 +235,7 @@ export function PortfolioCarousel() {
     },
     {
       title: "Patient Management",
-      image: "/Projects/patient.jpg",
+      image: "/Projects/systems/patient.jpg",
       CaseStudy: "https://cliniccasestudy.vercel.app/",
       technologies: [
         "Django 5.2 ",
@@ -67,7 +248,7 @@ export function PortfolioCarousel() {
     },
      {
       title: "Case Box",
-      image: "/Projects/lawyer.jpg",
+      image: "/Projects/systems/lawyer.jpg",
       CaseStudy: "https://lawyercasestudy.vercel.app/",
       technologies: [
         "Django 5.2 ",
@@ -80,7 +261,7 @@ export function PortfolioCarousel() {
     },
       {
       title: "CRM",
-      image: "/Projects/crm.jpg",
+      image: "/Projects/systems/crm.jpg",
       CaseStudy: "https://crmcasestudy.vercel.app/",
       technologies: [
         "Uvicorn",
@@ -93,7 +274,7 @@ export function PortfolioCarousel() {
     },
      {
       title: "Gym Management System",
-      image: "/Projects/en-gym.jpg",
+      image: "/Projects/systems/en-gym.jpg",
       CaseStudy: "https://gymcasestudy1.vercel.app/",
       technologies: [
         "java",
@@ -106,7 +287,7 @@ export function PortfolioCarousel() {
     },
       {
       title: "Drive X Car Rental",
-      image: "/Projects/drive-x.jpg",
+      image: "/Projects/systems/drive-x.jpg",
       CaseStudy: "https://carrentalcasestudy.vercel.app/",
       technologies: [
         "Node",
@@ -119,7 +300,7 @@ export function PortfolioCarousel() {
     },
     {
       title: "Inventory Pro",
-      image: "/Projects/inventory.jpg",
+      image: "/Projects/systems/inventory.jpg",
       CaseStudy: "https://inventorycasestudy.vercel.app/",
       technologies: [
         "Node.js",
@@ -132,7 +313,7 @@ export function PortfolioCarousel() {
     },
       {
       title: " SalonFlow",
-      image: "/Projects/salonflow.jpg",
+      image: "/Projects/systems/salonflow.jpg",
       CaseStudy: "https://salonflowcasestudy.vercel.app/",
       technologies: [
         "MERN Stack",
@@ -146,7 +327,7 @@ export function PortfolioCarousel() {
     
      {
       title: "Pharmacy Management",
-      image: "/Projects/pharmacy.jpg",
+      image: "/Projects/systems/pharmacy.jpg",
       CaseStudy: "https://pharmacymanagmentcasestudy.vercel.app/",
       technologies: [
         "React",
@@ -161,7 +342,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Analytics Dashboard",
-      image: "/Projects/analytics.jpg",
+      image: "/Projects/systems/analytics.jpg",
       CaseStudy: "https://analyticsdashboardcasestudy.vercel.app/",
       technologies: [
         "React",
@@ -175,7 +356,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Logistics System",
-      image: "/Projects/logistics.jpg",
+      image: "/Projects/systems/logistics.jpg",
       CaseStudy: "https://logisticscasestudy.vercel.app/",
       technologies: [
         "React",
@@ -190,7 +371,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Arabic Gym System",
-      image: "/Projects/gym.jpg",
+      image: "/Projects/systems/gym.jpg",
       CaseStudy: "https://arabicgymcasestudy.vercel.app/",
       technologies: [
         "Next.js",
@@ -203,7 +384,7 @@ export function PortfolioCarousel() {
 
     {
       title: "POSR Restaurant",
-      image: "/Projects/posr.jpg",
+      image: "/Projects/systems/posr.jpg",
       CaseStudy: "https://restaurantposcasestudy.vercel.app/",
       technologies: [
         "React",
@@ -220,7 +401,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Arabic Accounting System",
-      image: "/Projects/accounting.jpg",
+      image: "/Projects/systems/accounting.jpg",
       CaseStudy: "https://arabicaccountingcasestudy.vercel.app/",
       technologies: ["Python", "Flask", "SQLite"],
       description:
@@ -229,7 +410,7 @@ export function PortfolioCarousel() {
     
         {
       title: "HRMS System",
-      image: "/Projects/hr.jpg",
+      image: "/Projects/systems/hr.jpg",
       CaseStudy: "https://hrms-case-study.vercel.app/            ",
       technologies: ["React", "MongoDB", "Express ", "Tailwind, Zod"],
       description:
@@ -238,7 +419,7 @@ export function PortfolioCarousel() {
     
      {
       title: "Digital Menu",
-      image: "/Projects/menu.png",
+      image: "/Projects/systems/menu.png",
       CaseStudy: "https://digital-eight-iota.vercel.app/",
       technologies: ["HTML", "CSS", "JS ", "Supabase, PostgreSQL, Android (payment notification integration)"],
       description:
@@ -247,7 +428,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Super Market",
-      image: "/Projects/market.jpg",
+      image: "/Projects/systems/market.jpg",
       CaseStudy: "https://supermarketcasestudy.vercel.app/",
       technologies: ["python", "Django", "PostgreSQL", "Bootstrap"],
       description:
@@ -256,7 +437,7 @@ export function PortfolioCarousel() {
     
     {
       title: "Hospital Managment",
-      image: "/Projects/hospital.jpg",
+      image: "/Projects/systems/hospital.jpg",
       CaseStudy: "https://hospitalcasestudy.vercel.app/",
       technologies: ["PHP", "Laravel", "MySQL", "Native FrontEnd"],
       description:
@@ -265,7 +446,7 @@ export function PortfolioCarousel() {
     
         {
       title: "SPA Booking System",
-      image: "/Projects/spa.jpg",
+      image: "/Projects/systems/spa.jpg",
       CaseStudy: "https://spacasestudy.vercel.app/",
       technologies: ["Angular", "Spring Boot", "PostgreSQL ", "AWS"],
       description:
@@ -274,7 +455,7 @@ export function PortfolioCarousel() {
     
       {
       title: "Recruitment Agency System",
-      image: "/Projects/catch.png",
+      image: "/Projects/systems/catch.png",
       CaseStudy: "https://recruitmentcasestudy.vercel.app/",
       technologies: [
         "React",
@@ -292,7 +473,7 @@ export function PortfolioCarousel() {
 
     {
       title: "FERROVA",
-      image: "/Projects/ferrova.png",
+      image: "/Projects/landingPages/ferrova.png",
       liveDemo: "https://ferrova.vercel.app//",
       technologies: ["React", "GSAP, Three.js"],
       description:
@@ -301,7 +482,7 @@ export function PortfolioCarousel() {
     
       {
       title: "Coach Gym",
-      image: "/Projects/coach-gym.jpg",
+      image: "/Projects/landingPages/coach-gym.jpg",
       liveDemo: "https://gym-theta-green.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -310,7 +491,7 @@ export function PortfolioCarousel() {
 
       {
       title: "Savant EyeWear",
-      image: "/Projects/savant.png",
+      image: "/Projects/landingPages/savant.png",
       liveDemo: "https://eyewearstore-alpha.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -319,7 +500,7 @@ export function PortfolioCarousel() {
     
        {
       title: "CHUWI",
-      image: "/Projects/chuwi.png",
+      image: "/Projects/landingPages/chuwi.png",
       liveDemo: "https://www.chuwi.com/",
       technologies: ["Angular", "AWS", "Node.js", "Express.js"],
       description:
@@ -328,7 +509,7 @@ export function PortfolioCarousel() {
     
     {
       title: "Palestinian Stories",
-      image: "/Projects/palestine.png",
+      image: "/Projects/landingPages/palestine.png",
       liveDemo: "https://palestinianstories.com/",
       technologies: [
         "Angular",
@@ -342,7 +523,7 @@ export function PortfolioCarousel() {
     
      {
       title: "Affinity Labs",
-      image: "/Projects/labs.png",
+      image: "/Projects/landingPages/labs.png",
       liveDemo: "https://affinitylabs.ai/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -351,7 +532,7 @@ export function PortfolioCarousel() {
     
      {
       title: "Word of mouth",
-      image: "/Projects/w.w.png",
+      image: "/Projects/landingPages/w.w.png",
       liveDemo: "https://wordofmoutheg.com/",
       technologies: ["Angular"],
       description:
@@ -360,7 +541,7 @@ export function PortfolioCarousel() {
     
        {
       title: "Fluency Sprint",
-      image: "/Projects/f.s.png",
+      image: "/Projects/landingPages/f.s.png",
       liveDemo: "https://www.fluencysprint.online/",
       technologies: ["React", "Responsive Design",  "Tailwind"],
       description:
@@ -369,7 +550,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Mercelys Ice Cream",
-      image: "/Projects/mercelys-ice-cream.jpg",
+      image: "/Projects/landingPages/mercelys-ice-cream.jpg",
       liveDemo: "https://mercelys-ice-cream.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -378,7 +559,7 @@ export function PortfolioCarousel() {
 
     {
       title: "HIBIS Hotels & Resorts",
-      image: "/Projects/hibis-hotel.jpg",
+      image: "/Projects/landingPages/hibis-hotel.jpg",
       liveDemo: "https://landing-pages-rwsb.vercel.app/",
       technologies: ["Native", "Responsive Web Design"],
       description:
@@ -387,7 +568,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Aurelia Restaurant",
-      image: "/Projects/aurelia-restaurant.jpg",
+      image: "/Projects/landingPages/aurelia-restaurant.jpg",
       liveDemo: "https://landing-pages-aezo.vercel.app/",
       technologies: ["Next", "Responsive Web Design"],
       description:
@@ -396,7 +577,7 @@ export function PortfolioCarousel() {
 
     {
       title: "SAS Solutions",
-      image: "/Projects/sas-solutions.jpg",
+      image: "/Projects/landingPages/sas-solutions.jpg",
       liveDemo: "https://landing-pages-s76p.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -405,7 +586,7 @@ export function PortfolioCarousel() {
 
     {
       title: "DesignCafe",
-      image: "/Projects/designcafe-interior.jpg",
+      image: "/Projects/landingPages/designcafe-interior.jpg",
       liveDemo: "https://landing-pages-ptqd.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -414,7 +595,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Humble Rose",
-      image: "/Projects/humble-rose.jpg",
+      image: "/Projects/landingPages/humble-rose.jpg",
       liveDemo: "https://landing-pages-1avj.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -423,7 +604,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Drip & Garlic",
-      image: "/Projects/drip-garlic.jpg",
+      image: "/Projects/landingPages/drip-garlic.jpg",
       liveDemo: "https://res-landing-rust.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -432,7 +613,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Dawid Gym",
-      image: "/Projects/dawid-gym.jpg",
+      image: "/Projects/landingPages/dawid-gym.jpg",
       liveDemo: "https://landing-ii.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -441,7 +622,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Visit Norway",
-      image: "/Projects/visit-norway.jpg",
+      image: "/Projects/landingPages/visit-norway.jpg",
       liveDemo: "https://landing-kmkp.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -450,7 +631,7 @@ export function PortfolioCarousel() {
 
     {
       title: "DietBowl",
-      image: "/Projects/dietbowl.jpg",
+      image: "/Projects/landingPages/dietbowl.jpg",
       liveDemo: "https://landing-bi6v.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -459,7 +640,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Interior Studio",
-      image: "/Projects/interior-studio.jpg",
+      image: "/Projects/landingPages/interior-studio.jpg",
       liveDemo: "https://interior-beige-omega.vercel.app/",
       technologies: ["Angular", "Responsive Web Design"],
       description:
@@ -468,7 +649,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Car Hub",
-      image: "/Projects/car-hub.jpg",
+      image: "/Projects/landingPages/car-hub.jpg",
       liveDemo: "https://car-show-case-one.vercel.app/",
       technologies: ["Nextjs", "Responsive Web Design"],
       description:
@@ -477,7 +658,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Car Dealership",
-      image: "/Projects/car-dealership.jpg",
+      image: "/Projects/landingPages/car-dealership.jpg",
       liveDemo: "https://cardealership-sigma.vercel.app/",
       technologies: ["Angular", "Responsive Web Design"],
       description:
@@ -486,7 +667,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Furniture Store",
-      image: "/Projects/furniture-store.jpg",
+      image: "/Projects/landingPages/furniture-store.jpg",
       liveDemo: "https://furniture-rust-eight.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -495,7 +676,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Buzz World",
-      image: "/Projects/buzz-world.jpg",
+      image: "/Projects/landingPages/buzz-world.jpg",
       liveDemo: "https://landing-pages-vs2g.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -504,7 +685,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Wedding Agency",
-      image: "/Projects/wedding-agency.jpg",
+      image: "/Projects/landingPages/wedding-agency.jpg",
       liveDemo: "https://landing-ovtg.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -513,7 +694,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Grandma's Bakery",
-      image: "/Projects/grandmas-bakery.jpg",
+      image: "/Projects/landingPages/grandmas-bakery.jpg",
       liveDemo: "https://grand-phi.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -522,7 +703,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Noir Cafe",
-      image: "/Projects/noir-cafe.jpg",
+      image: "/Projects/landingPages/noir-cafe.jpg",
       liveDemo: "https://lan-sigma-three.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -531,7 +712,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Amber Coffee",
-      image: "/Projects/amber-coffee.jpg",
+      image: "/Projects/landingPages/amber-coffee.jpg",
       liveDemo: "https://landing-pages-ayul.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -540,7 +721,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Sushiman",
-      image: "/Projects/sushiman.jpg",
+      image: "/Projects/landingPages/sushiman.jpg",
       liveDemo: "https://landing-indol-two-20.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -549,7 +730,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Fast Food Restaurant",
-      image: "/Projects/fast-food-restaurant.jpg",
+      image: "/Projects/landingPages/fast-food-restaurant.jpg",
       liveDemo: "https://landing-pages-2fxu.vercel.app/",
       technologies: ["Angular", "Responsive Web Design"],
       description:
@@ -558,7 +739,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Barber Shop",
-      image: "/Projects/barber-shop.jpg",
+      image: "/Projects/landingPages/barber-shop.jpg",
       liveDemo: "https://landing-pages-8m5w.vercel.app/",
       technologies: ["Native", "Responsive Web Design"],
       description:
@@ -567,7 +748,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Brainwave",
-      image: "/Projects/brainwave.jpg",
+      image: "/Projects/landingPages/brainwave.jpg",
       liveDemo: "https://landing-pages-99oy.vercel.app/",
       technologies: ["Angular", "Responsive Web Design"],
       description:
@@ -576,7 +757,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Burger House",
-      image: "/Projects/burger-house.jpg",
+      image: "/Projects/landingPages/burger-house.jpg",
       liveDemo: "https://landing-pages-dczm.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -585,7 +766,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Cinematic Cafe",
-      image: "/Projects/cinematic-cafe.jpg",
+      image: "/Projects/landingPages/cinematic-cafe.jpg",
       liveDemo: "https://landing-pages-3al9.vercel.app/#",
       technologies: ["Native", "Responsive Web Design"],
       description:
@@ -594,7 +775,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Cocktail",
-      image: "/Projects/cocktail.jpg",
+      image: "/Projects/landingPages/cocktail.jpg",
       liveDemo: "https://landing-pages-skfp.vercel.app/",
       technologies: ["Angular", "Responsive Web Design"],
       description:
@@ -603,7 +784,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Digital Studio",
-      image: "/Projects/digital-studio.jpg",
+      image: "/Projects/landingPages/digital-studio.jpg",
       liveDemo: "https://landing-pages-gh8o.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -612,7 +793,7 @@ export function PortfolioCarousel() {
 
     {
       title: "MediCare Pro",
-      image: "/Projects/medicare-pro.jpg",
+      image: "/Projects/landingPages/medicare-pro.jpg",
       liveDemo: "https://landing-pages-vcky.vercel.app/",
       technologies: ["Native", "Responsive Web Design"],
       description:
@@ -621,7 +802,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Juicy",
-      image: "/Projects/juicy.jpg",
+      image: "/Projects/landingPages/juicy.jpg",
       liveDemo: "https://landing-pages-vtj1.vercel.app/",
       technologies: ["Angular", "Responsive Web Design"],
       description:
@@ -630,7 +811,7 @@ export function PortfolioCarousel() {
 
     {
       title: "MacBook",
-      image: "/Projects/macbook.jpg",
+      image: "/Projects/landingPages/macbook.jpg",
       liveDemo: "https://landing-pages-1wex.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -639,7 +820,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Nike",
-      image: "/Projects/nike.jpg",
+      image: "/Projects/landingPages/nike.jpg",
       liveDemo: "https://landing-pages-5e4d.vercel.app/",
       technologies: ["Next", "Responsive Web Design"],
       description:
@@ -648,7 +829,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Royal Burger",
-      image: "/Projects/royal-burger.jpg",
+      image: "/Projects/landingPages/royal-burger.jpg",
       liveDemo: "https://royal-biryani-psi.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -657,7 +838,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Seafood",
-      image: "/Projects/seafood.jpg",
+      image: "/Projects/landingPages/seafood.jpg",
       liveDemo: "https://seafood-zeta.vercel.app/",
       technologies: ["React", "Responsive Web Design"],
       description:
@@ -666,7 +847,7 @@ export function PortfolioCarousel() {
 
     {
       title: "Volt Energy Drink",
-      image: "/Projects/volt-energy-drink.jpg",
+      image: "/Projects/landingPages/volt-energy-drink.jpg",
       liveDemo: "https://volt-drink-olive.vercel.app/",
       technologies: ["Next", "Responsive Web Design"],
       description:
@@ -675,28 +856,307 @@ export function PortfolioCarousel() {
 
     {
       title: "Perfume",
-      image: "/Projects/perfume.jpg",
+      image: "/Projects/landingPages/perfume.jpg",
       liveDemo: "https://seafood-landing-page.vercel.app/",
       technologies: ["Next", "Responsive Web Design"],
       description:
         "A premium product landing experience designed around luxury visual presentation, product identity, and responsive storytelling.",
     },
+
+    {
+      title: "Pool",
+      image: "/Projects/landingPages/swimming-pool.png",
+      liveDemo: "https://swimmingpools-pi.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A swimming pool company landing page showcasing pool designs, installation services, gallery projects, and inquiry-focused calls to action.",
+    },
+
+    {
+      title: "Super Market",
+      image: "/Projects/landingPages/super-market.png",
+      liveDemo: "https://supermarket-sepia-theta.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A modern supermarket landing experience presenting fresh products, weekly offers, store information, and online shopping calls to action.",
+    },
+
+    {
+      title: "Solar Energy",
+      image: "/Projects/landingPages/solar-energy.png",
+      liveDemo: "https://solarenergy-ashy.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A renewable energy landing page highlighting solar solutions, system benefits, installation process, and consultation requests.",
+    },
+
+    {
+      title: "Sneakers Store",
+      image: "/Projects/landingPages/sneakers-store.png",
+      liveDemo: "https://sneakerstore-jet.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A sneaker store landing page built around product drops, featured collections, sizing information, and purchase calls to action.",
+    },
+
+    {
+      title: "Pro Cleaning",
+      image: "/Projects/landingPages/pro-cleaning.png",
+      liveDemo: "https://procleaning-ten.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A professional cleaning service landing page presenting service packages, before-and-after results, pricing, and instant booking.",
+    },
+
+    {
+      title: "Pest Control",
+      image: "/Projects/landingPages/pest-control.png",
+      liveDemo: "https://pestcontrol-chi.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A pest control landing page focused on treatment services, safety information, service areas, and emergency contact calls to action.",
+    },
+
+    {
+      title: "Logistics",
+      image: "/Projects/landingPages/logistics-lp.png",
+      liveDemo: "https://logistics-rouge-six.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A logistics and shipping landing page showcasing freight services, tracking capabilities, coverage areas, and quote requests.",
+    },
+
+    {
+      title: "Engineering",
+      image: "/Projects/landingPages/engineering.png",
+      liveDemo: "https://engineering-orpin.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "An engineering firm landing page presenting disciplines, completed projects, certifications, and consultation inquiries.",
+    },
+
+    {
+      title: "Tailoring Studio",
+      image: "/Projects/landingPages/tailoring-studio.png",
+      liveDemo: "https://tailoringstudio.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A bespoke tailoring studio landing page featuring custom garment services, fabric collections, craftsmanship, and appointment booking.",
+    },
+
+    {
+      title: "Printing House",
+      image: "/Projects/landingPages/printing-house.png",
+      liveDemo: "https://printinghouse-brown.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A commercial printing landing page showcasing print products, paper stocks, finishing options, instant quotes, and bulk ordering.",
+    },
+
+    {
+      title: "Photography Studio",
+      image: "/Projects/landingPages/photography-studio.png",
+      liveDemo: "https://landing2-orpin-three.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A photography studio landing page presenting portfolios, packages, event coverage, and session booking calls to action.",
+    },
+
+    {
+      title: "Medical Lab",
+      image: "/Projects/landingPages/medical-lab.png",
+      liveDemo: "https://landin3-gold.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A medical laboratory landing page highlighting tests, fast results, home collection services, and online appointment scheduling.",
+    },
+
+    {
+      title: "Flower Boutique",
+      image: "/Projects/landingPages/flower-boutique.png",
+      liveDemo: "https://flowerboutique-black.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A flower boutique landing page showcasing arrangements, seasonal collections, same-day delivery, and occasion-based gifting.",
+    },
+
+    {
+      title: "Dry Clean",
+      image: "/Projects/landingPages/dry-clean.jpg",
+      liveDemo: "https://dryclean-tau.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A dry cleaning service landing page presenting garment care services, turnaround times, pricing, and pickup scheduling.",
+    },
+
+    {
+      title: "Construction",
+      image: "/Projects/landingPages/construction.png",
+      liveDemo: "https://landing2-47iv.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A construction company landing page showcasing building services, completed projects, materials expertise, and quote requests.",
+    },
+
+    {
+      title: "Car Wash",
+      image: "/Projects/landingPages/car-wash.png",
+      liveDemo: "https://carwash-virid-sigma.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A car wash landing page presenting wash packages, detailing services, membership plans, and location information.",
+    },
+
+    {
+      title: "3D Gym",
+      image: "/Projects/landingPages/3d-gym.png",
+      liveDemo: "https://gym3-rose.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A modern gym landing page featuring immersive visuals, training programs, class schedules, trainer profiles, and membership sign-up.",
+    },
+
+    {
+      title: "Accounting AccuLedger",
+      image: "/Projects/landingPages/acculedger.png",
+      liveDemo: "https://landing1-virid.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "An accounting services landing page presenting bookkeeping, tax preparation, financial consulting, and client onboarding.",
+    },
+
+    {
+      title: "Aluminum & Glass",
+      image: "/Projects/landingPages/aluminum-glass.png",
+      liveDemo: "https://aluminumglass.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "An aluminum and glass solutions landing page showcasing facades, windows, shop fronts, projects, and measurement requests.",
+    },
+
+    {
+      title: "Appliance Repair",
+      image: "/Projects/landingPages/appliance-repair.png",
+      liveDemo: "https://appliancerepair-xi.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "An appliance repair landing page covering supported devices, same-day service, certified technicians, and repair booking.",
+    },
+
+    {
+      title: "Cake Shop",
+      image: "/Projects/landingPages/cake-shop.png",
+      liveDemo: "https://cakeshop-gamma-roan.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A bakery landing page showcasing custom cakes, dessert menus, celebration packages, and online ordering.",
+    },
+
+    {
+      title: "Insurance",
+      image: "/Projects/landingPages/insurance.png",
+      liveDemo: "https://landing1-insurance.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "An insurance landing page presenting coverage plans, claims support, policy comparison, and instant quote requests.",
+    },
+
+    {
+      title: "Kitchen Studio",
+      image: "/Projects/landingPages/kitchen-studio.png",
+      liveDemo: "https://kitchenstudio-beta.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A kitchen design studio landing page featuring design packages, 3D visualizations, material selections, and consultation booking.",
+    },
+
+    {
+      title: "Language School",
+      image: "/Projects/landingPages/language-school.png",
+      liveDemo: "https://languageschool-red.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A language school landing page showcasing courses, certified instructors, learning levels, free trial classes, and enrollment.",
+    },
+
+    {
+      title: "Printing Shop",
+      image: "/Projects/landingPages/printing-shop.png",
+      liveDemo: "https://printingshop.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A printing shop landing page presenting quick-print products, design templates, pricing calculator, and same-day pickup.",
+    },
+
+    {
+      title: "School",
+      image: "/Projects/landingPages/school.png",
+      liveDemo: "https://landing1-school.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A school landing page highlighting academic programs, facilities, admissions process, tuition information, and enrollment calls to action.",
+    },
+
+    {
+      title: "Clothes Shop",
+      image: "/Projects/landingPages/clothes-shop.png",
+      liveDemo: "https://clothes-shop-flax.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A clothing store landing page showcasing collections, size guides, lookbooks, and seasonal shopping experiences.",
+    },
+
+    {
+      title: "Daily Drip Cafe",
+      image: "/Projects/landingPages/daily-drip-cafe.png",
+      liveDemo: "https://the-daily-drip-caf-website.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A specialty coffee cafe landing page featuring the menu, brewing story, loyalty program, locations, and online ordering.",
+    },
+
+    {
+      title: "Flight Company",
+      image: "/Projects/landingPages/flight-company.png",
+      liveDemo: "https://voya-travel-website.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A travel and flights landing page showcasing destinations, fare search, travel packages, and booking calls to action.",
+    },
   ], [])
 
   const landingPageStartIndex = projects.findIndex((project) => project.title === 'FERROVA')
-  const visibleProjects = activeCategory === 'systems'
-    ? projects.slice(0, landingPageStartIndex)
-    : activeCategory === 'landingPages'
-      ? projects.slice(landingPageStartIndex)
-      : []
+
+  const systemsProjects = useMemo(() => projects.slice(0, landingPageStartIndex), [projects, landingPageStartIndex])
+  const landingProjects = useMemo(() => projects.slice(landingPageStartIndex), [projects, landingPageStartIndex])
+
+  const activeCategoryData = LANDING_CATEGORIES.find((c) => c.id === activeSubcategory)
+
+  const visibleProjects = useMemo(() => {
+    if (activeCategory === 'systems') return systemsProjects
+    if (activeCategory === 'landingPages' && activeSubcategory) {
+      return landingProjects.filter((project) => activeCategoryData?.titles.includes(project.title))
+    }
+    return []
+  }, [activeCategory, activeSubcategory, activeCategoryData, systemsProjects, landingProjects])
+
+  const categoryCards = useMemo(() => {
+    if (activeCategory !== 'landingPages' || activeSubcategory) return []
+    return LANDING_CATEGORIES.map((category) => {
+      const categoryProjects = landingProjects.filter((project) => category.titles.includes(project.title))
+      return {
+        ...category,
+        image: categoryProjects[0]?.image ?? '',
+        count: categoryProjects.length,
+      }
+    })
+  }, [activeCategory, activeSubcategory, landingProjects])
 
   useEffect(() => {
-    if (!activeCategory) return
+    if (!activeCategory || (activeCategory === 'landingPages' && !activeSubcategory)) return
 
     let cancelled = false
-    const categoryProjects = activeCategory === 'systems'
-      ? projects.slice(0, landingPageStartIndex)
-      : projects.slice(landingPageStartIndex)
+    const categoryProjects = visibleProjects
     const totalMedia = categoryProjects.length
     let nextIndex = 0
     let completedCount = 0
@@ -746,7 +1206,7 @@ export function PortfolioCarousel() {
     return () => {
       cancelled = true
     }
-  }, [activeCategory, landingPageStartIndex, projects])
+  }, [activeCategory, activeSubcategory, visibleProjects])
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -830,14 +1290,14 @@ export function PortfolioCarousel() {
               title: 'Systems',
               subtitle: 'Platforms, dashboards & custom software',
               image: '/systems.jpg',
-              count: landingPageStartIndex,
+              count: systemsProjects.length,
             },
             {
               id: 'landingPages' as const,
               title: 'Landing Pages',
               subtitle: 'Brand-led digital experiences',
               image: '/landing-pages.jpg',
-              count: projects.length - landingPageStartIndex,
+              count: landingProjects.length,
             },
           ].map((category, index) => (
             <button
@@ -846,7 +1306,8 @@ export function PortfolioCarousel() {
               onClick={() => {
                 setActiveIndex(0)
                 setPreparedMediaCount(0)
-                setIsPreparingMedia(true)
+                setActiveSubcategory(null)
+                if (category.id === 'systems') setIsPreparingMedia(true)
                 setActiveCategory(category.id)
               }}
               className="group relative isolate flex aspect-square min-h-0 flex-col justify-end overflow-hidden rounded-xl border border-white/15 bg-[#121414] p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-[#c8e6d9]/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c8e6d9] sm:p-7"
@@ -873,13 +1334,69 @@ export function PortfolioCarousel() {
             </button>
           ))}
         </div>
+      ) : activeCategory === 'landingPages' && !activeSubcategory ? (
+        <div className="mx-auto mt-8 w-full max-w-6xl sm:mt-12">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3 sm:mb-5">
+            <p className="font-brand text-lg font-bold text-white sm:text-xl">
+              Landing Pages
+              <span className="ml-2 text-sm font-normal text-white/50">{landingProjects.length} projects</span>
+            </p>
+            <button
+              type="button"
+              onClick={() => {
+                setActiveCategory(null)
+                setActiveIndex(0)
+              }}
+              className="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-2 text-xs font-semibold text-white/75 transition hover:border-[#c8e6d9]/60 hover:text-white sm:px-4 sm:text-sm"
+            >
+              Change category
+            </button>
+          </div>
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:grid-cols-3">
+            {categoryCards.map((category, index) => (
+              <button
+                key={category.id}
+                type="button"
+                onClick={() => {
+                  setActiveIndex(0)
+                  setPreparedMediaCount(0)
+                  setIsPreparingMedia(true)
+                  setActiveSubcategory(category.id)
+                }}
+                className="group relative isolate flex aspect-[4/3] min-h-0 flex-col justify-end overflow-hidden rounded-xl border border-white/15 bg-[#121414] p-5 text-left transition duration-300 hover:-translate-y-1 hover:border-[#c8e6d9]/60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#c8e6d9] sm:p-6"
+                style={{ animationDelay: `${index * 60}ms` }}
+              >
+                <img
+                  src={category.image}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 -z-20 h-full w-full object-cover opacity-45 transition duration-700 group-hover:scale-105 group-hover:opacity-60"
+                />
+                <div className="absolute inset-0 -z-10 bg-gradient-to-t from-black via-black/55 to-black/10" />
+                <span className="mb-3 text-xs font-medium uppercase text-[#dff3e8]">
+                  {String(category.count).padStart(2, '0')} projects
+                </span>
+                <span className="font-brand text-xl font-black text-white sm:text-2xl">
+                  {category.title}
+                </span>
+                <span className="mt-1 text-sm text-white/75">{category.subtitle}</span>
+                <span className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#c8e6d9]">
+                  Explore <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                </span>
+              </button>
+            ))}
+          </div>
+        </div>
       ) : isPreparingMedia ? (
         <div className="mx-auto mt-8 flex min-h-72 w-full max-w-6xl flex-col items-center justify-center rounded-xl border border-white/10 bg-[#121414]/75 px-6 py-10 text-center sm:mt-12 sm:min-h-96">
           <div className="relative mb-7 flex h-16 w-16 items-center justify-center">
             <span className="absolute inset-0 animate-spin rounded-full border-2 border-[#c8e6d9]/15 border-t-[#c8e6d9]" />
             <span className="h-2 w-2 rounded-full bg-[#dff3e8] shadow-[0_0_18px_4px_rgba(200,230,217,0.4)]" />
           </div>
-          <p className="text-xs font-semibold uppercase text-[#c8e6d9]">Preparing {activeCategory === 'systems' ? 'systems' : 'landing pages'}</p>
+          <p className="text-xs font-semibold uppercase text-[#c8e6d9]">
+            Preparing {activeCategory === 'systems' ? 'systems' : activeCategoryData?.title.toLowerCase() ?? 'landing pages'}
+          </p>
           <p className="mt-2 font-brand text-2xl font-black text-white sm:text-3xl">Loading the work</p>
           <div className="mt-6 h-1.5 w-full max-w-sm overflow-hidden rounded-full bg-white/10">
             <div
@@ -895,13 +1412,19 @@ export function PortfolioCarousel() {
       <div className="mx-auto mt-8 w-full max-w-6xl sm:mt-12">
         <div className="mb-4 flex flex-wrap items-center justify-between gap-3 sm:mb-5">
           <p className="font-brand text-lg font-bold text-white sm:text-xl">
-            {activeCategory === 'systems' ? 'Systems' : 'Landing Pages'}
+            {activeCategory === 'systems' ? 'Systems' : activeCategoryData?.title ?? 'Landing Pages'}
             <span className="ml-2 text-sm font-normal text-white/50">{visibleProjects.length} projects</span>
           </p>
           <button
             type="button"
             onClick={() => {
-              setActiveCategory(null)
+              if (activeCategory === 'landingPages' && activeSubcategory) {
+                setActiveSubcategory(null)
+                setIsPreparingMedia(false)
+              } else {
+                setActiveCategory(null)
+                setActiveSubcategory(null)
+              }
               setActiveIndex(0)
             }}
             className="inline-flex items-center gap-2 rounded-full border border-white/20 px-3 py-2 text-xs font-semibold text-white/75 transition hover:border-[#c8e6d9]/60 hover:text-white sm:px-4 sm:text-sm"
