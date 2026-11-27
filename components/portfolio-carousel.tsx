@@ -70,6 +70,10 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Arabic Ecommerce',
       'Beauty Center',
       'Book Store',
+      'Montar',
+      'AR Bookstore',
+      'Makeup Artist',
+      'Stationery',
     ],
   },
   {
@@ -93,6 +97,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Medical Lab',
       'Spa',
       'Skin Routine',
+      'Beauty of Skin',
     ],
   },
   {
@@ -116,6 +121,8 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Photography Studio',
       'Flower Boutique',
       'PresenteLandia',
+      'Desert Gift',
+      'Flower Shop',
     ],
   },
   {
@@ -202,6 +209,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'School',
       'Fluency Sprint',
       'Tutor',
+      'English Literature',
     ],
   },
   {
@@ -217,6 +225,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Buzz World',
       'Digital Studio',
       'Hanachi',
+      'Sunny Side Agency',
     ],
   },
 ]
@@ -1439,6 +1448,87 @@ export function PortfolioCarousel() {
       technologies: ["React", "Responsive Web Design"],
       description:
         "A skincare brand landing page featuring product routines, ingredients, before-and-after results, and online shopping.",
+    },
+
+    {
+      title: "Desert Gift",
+      image: "/Projects/landingPages/desert-gift.png",
+      liveDemo: "https://sabry660.github.io/desert-gift-shop/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "A gift shop landing page showcasing curated gift collections, occasion-based products, and thoughtful shopping experiences.",
+    },
+
+    {
+      title: "Flower Shop",
+      image: "/Projects/landingPages/flower-shop.png",
+      liveDemo: "https://sabry660.github.io/flower/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "A flower shop landing page featuring bouquet collections, seasonal arrangements, delivery options, and occasion gifting.",
+    },
+
+    {
+      title: "English Literature",
+      image: "/Projects/landingPages/english-literature.png",
+      liveDemo: "https://sabry660.github.io/english_literature/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "An English literature platform presenting classic and modern works, author profiles, analyses, and reading resources.",
+    },
+
+    {
+      title: "Beauty of Skin",
+      image: "/Projects/landingPages/beauty-of-skin.png",
+      liveDemo: "https://sabry660.github.io/beauty_of_skin/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "A skincare and beauty landing page showcasing products, routines, skin tips, and self-care experiences.",
+    },
+
+    {
+      title: "Montar",
+      image: "/Projects/landingPages/montar.png",
+      liveDemo: "https://sabry660.github.io/montar/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "A modern brand landing page presenting products, collections, and an engaging digital showcase.",
+    },
+
+    {
+      title: "AR Bookstore",
+      image: "/Projects/landingPages/ar-bookstore.png",
+      liveDemo: "https://sabry660.github.io/ar_bookstore/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "An Arabic bookstore landing page featuring book categories, bestsellers, author spotlights, and online ordering.",
+    },
+
+    {
+      title: "Makeup Artist",
+      image: "/Projects/landingPages/makeup-artist.png",
+      liveDemo: "https://sabry660.github.io/makeup/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "A professional makeup artist portfolio landing page showcasing looks, services, packages, and booking inquiries.",
+    },
+
+    {
+      title: "Stationery",
+      image: "/Projects/landingPages/stationery.png",
+      liveDemo: "https://sabry660.github.io/stationery/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "A stationery store landing page featuring products, collections, gift sets, and shopping calls to action.",
+    },
+
+    {
+      title: "Sunny Side Agency",
+      image: "/Projects/landingPages/sunny-side-agency.png",
+      liveDemo: "https://sabry660.github.io/sunnyside/",
+      technologies: ["HTML", "CSS", "JS"],
+      description:
+        "A creative agency landing page presenting services, portfolio work, team, and client inquiries.",
     },
   ], [])
 
