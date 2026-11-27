@@ -19,6 +19,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Seafood',
       'Juicy',
       'Slice Town',
+      'Food Grocery',
     ],
   },
   {
@@ -35,6 +36,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Daily Drip Cafe',
       'Cocktail',
       'Volt Energy Drink',
+      'Revo',
     ],
   },
   {
@@ -48,6 +50,9 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Clothes Shop',
       'Tailoring Studio',
       'Savant EyeWear',
+      'Clothes Ecommerce',
+      'Glasses',
+      'Bags',
     ],
   },
   {
@@ -59,6 +64,12 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Furniture Store',
       'Barber Shop',
       'Super Market',
+      'Jewelry',
+      'Pet Care',
+      'Real Estate',
+      'Arabic Ecommerce',
+      'Beauty Center',
+      'Book Store',
     ],
   },
   {
@@ -69,6 +80,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Coach Gym',
       'Dawid Gym',
       '3D Gym',
+      'Gym',
     ],
   },
   {
@@ -80,6 +92,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'DietBowl',
       'Medical Lab',
       'Spa',
+      'Skin Routine',
     ],
   },
   {
@@ -91,6 +104,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Visit Norway',
       'Flight Company',
       'Safari',
+      'Boat Rental',
     ],
   },
   {
@@ -101,6 +115,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Wedding Agency',
       'Photography Studio',
       'Flower Boutique',
+      'PresenteLandia',
     ],
   },
   {
@@ -111,6 +126,17 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Car Hub',
       'Car Dealership',
       'Car Wash',
+      'Car Rental',
+    ],
+  },
+  {
+    id: 'entertainment-gaming',
+    title: 'Entertainment & Gaming',
+    subtitle: 'Gaming lounges, esports & play experiences',
+    titles: [
+      'Gaming Lounge',
+      'Gaming Cafe',
+      'PlayStation',
     ],
   },
   {
@@ -123,6 +149,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Aluminum & Glass',
       'Kitchen Studio',
       'Water Purification',
+      'Moving',
     ],
   },
   {
@@ -147,6 +174,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'MacBook',
       'Brainwave',
       'Affinity Labs',
+      'Digital Reality',
     ],
   },
   {
@@ -161,6 +189,8 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Solar Energy',
       'Printing House',
       'Printing Shop',
+      'Logistics Company',
+      'Justice',
     ],
   },
   {
@@ -171,6 +201,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Language School',
       'School',
       'Fluency Sprint',
+      'Tutor',
     ],
   },
   {
@@ -185,6 +216,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Interior Studio',
       'Buzz World',
       'Digital Studio',
+      'Hanachi',
     ],
   },
 ]
@@ -1182,6 +1214,231 @@ export function PortfolioCarousel() {
       technologies: ["React", "Responsive Web Design"],
       description:
         "A safari tours landing page showcasing destinations, wildlife experiences, tour packages, itineraries, and booking inquiries.",
+    },
+
+    {
+      title: "Moving",
+      image: "/Projects/landingPages/moving.png",
+      liveDemo: "https://landing5-movingcompany.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A moving company landing page presenting relocation services, packing solutions, pricing, service areas, and instant quotes.",
+    },
+
+    {
+      title: "Pet Care",
+      image: "/Projects/landingPages/pet-care.png",
+      liveDemo: "https://landing5-petcare.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A pet care landing page showcasing grooming, boarding, veterinary services, pet packages, and booking appointments.",
+    },
+
+    {
+      title: "Real Estate",
+      image: "/Projects/landingPages/real-estate.png",
+      liveDemo: "https://realestate-pi-lime.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A real estate landing page featuring property listings, search filters, virtual tours, agent profiles, and inquiry forms.",
+    },
+
+    {
+      title: "Gym",
+      image: "/Projects/landingPages/gym.png",
+      liveDemo: "https://landing5-gym.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A fitness gym landing page showcasing training programs, equipment, class schedules, trainer profiles, and membership plans.",
+    },
+
+    {
+      title: "Clothes Ecommerce",
+      image: "/Projects/landingPages/clothes-ecommerce.png",
+      liveDemo: "https://landing5-clothesecommerce.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A fashion e-commerce landing page featuring product collections, size guides, seasonal drops, cart functionality, and checkout.",
+    },
+
+    {
+      title: "Food Grocery",
+      image: "/Projects/landingPages/food-grocery.png",
+      liveDemo: "https://landing5-foodgrocery.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "An online grocery store landing page presenting fresh products, categories, delivery slots, weekly deals, and quick ordering.",
+    },
+
+    {
+      title: "Gaming Lounge",
+      image: "/Projects/landingPages/gaming-lounge.png",
+      liveDemo: "https://landing5-gaminglounge.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A gaming lounge landing page showcasing PC setups, consoles, hourly pricing, tournaments, and reservation booking.",
+    },
+
+    {
+      title: "Gaming Cafe",
+      image: "/Projects/landingPages/gaming-cafe.png",
+      liveDemo: "https://landing5-gamingcafe.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A gaming cafe landing page featuring high-end rigs, esports setups, snacks & drinks menu, and session bookings.",
+    },
+
+    {
+      title: "Revo",
+      image: "/Projects/landingPages/revo.png",
+      liveDemo: "https://landing6-revocoffee.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A specialty coffee brand landing page showcasing signature blends, brewing methods, subscriptions, and store locations.",
+    },
+
+    {
+      title: "PresenteLandia",
+      image: "/Projects/landingPages/presente-landia.png",
+      liveDemo: "https://landing6-presentelandia.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A gift shop landing page featuring curated gift collections, occasion-based picks, personalization options, and delivery.",
+    },
+
+    {
+      title: "Tutor",
+      image: "/Projects/landingPages/tutor.png",
+      liveDemo: "https://landing6-novatutor.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A tutoring platform landing page showcasing subjects, expert tutors, learning plans, free trial sessions, and booking.",
+    },
+
+    {
+      title: "Logistics Company",
+      image: "/Projects/landingPages/logistics-company.png",
+      liveDemo: "https://landing6-logistics.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A logistics company landing page presenting freight services, fleet tracking, coverage areas, and instant shipping quotes.",
+    },
+
+    {
+      title: "PlayStation",
+      image: "/Projects/landingPages/playstation.png",
+      liveDemo: "https://playstation-snowy.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A PlayStation gaming landing page showcasing consoles, games, accessories, offers, and pre-order calls to action.",
+    },
+
+    {
+      title: "Jewelry",
+      image: "/Projects/landingPages/jewelry.png",
+      liveDemo: "https://landing6-jewelry.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A jewelry brand landing page featuring collections, craftsmanship stories, product galleries, and bespoke inquiries.",
+    },
+
+    {
+      title: "Glasses",
+      image: "/Projects/landingPages/glasses.png",
+      liveDemo: "https://landing6-glasses.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "An eyewear store landing page showcasing frame collections, virtual try-on, lens options, and prescription orders.",
+    },
+
+    {
+      title: "Arabic Ecommerce",
+      image: "/Projects/landingPages/arabic-ecommerce.png",
+      liveDemo: "https://landing6-arabicecommerce.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "An Arabic-first e-commerce landing page featuring RTL support, product catalogs, secure checkout, and mobile shopping.",
+    },
+
+    {
+      title: "Car Rental",
+      image: "/Projects/landingPages/car-rental.png",
+      liveDemo: "https://landing6-carrental.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A car rental landing page showcasing vehicle fleet, rental rates, insurance options, pickup locations, and instant booking.",
+    },
+
+    {
+      title: "Boat Rental",
+      image: "/Projects/landingPages/boat-rental.png",
+      liveDemo: "https://landing6-boatrental.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A boat rental landing page featuring yacht and boat listings, hourly rates, captain services, and reservation booking.",
+    },
+
+    {
+      title: "Bags",
+      image: "/Projects/landingPages/bags.png",
+      liveDemo: "https://landing7-bagsaccessories.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A bags and accessories store landing page showcasing collections, materials, styling looks, and shopping calls to action.",
+    },
+
+    {
+      title: "Beauty Center",
+      image: "/Projects/landingPages/beauty-center.png",
+      liveDemo: "https://landing7beautycenter.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A beauty center landing page presenting salon services, skincare treatments, therapist profiles, packages, and booking.",
+    },
+
+    {
+      title: "Book Store",
+      image: "/Projects/landingPages/book-store.png",
+      liveDemo: "https://landing7-bookstore.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A bookstore landing page featuring book categories, bestsellers, author spotlights, events, and online ordering.",
+    },
+
+    {
+      title: "Digital Reality",
+      image: "/Projects/landingPages/digital-reality.png",
+      liveDemo: "https://landing7-digitalreality.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A digital reality studio landing page showcasing VR/AR experiences, immersive projects, capabilities, and client inquiries.",
+    },
+
+    {
+      title: "Hanachi",
+      image: "/Projects/landingPages/hanachi.png",
+      liveDemo: "https://landing7-hanachi.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A visual identity agency landing page showcasing brand strategy, logo and identity design, case studies, and client inquiries.",
+    },
+
+    {
+      title: "Justice",
+      image: "/Projects/landingPages/justice.png",
+      liveDemo: "https://landing7-lawyer.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A law firm landing page highlighting legal practice areas, attorney profiles, case results, and consultation requests.",
+    },
+
+    {
+      title: "Skin Routine",
+      image: "/Projects/landingPages/skin-routine.png",
+      liveDemo: "https://landing7-skinroutine.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A skincare brand landing page featuring product routines, ingredients, before-and-after results, and online shopping.",
     },
   ], [])
 
