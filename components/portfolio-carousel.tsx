@@ -18,6 +18,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Royal Burger',
       'Seafood',
       'Juicy',
+      'Slice Town',
     ],
   },
   {
@@ -78,6 +79,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'MediCare Pro',
       'DietBowl',
       'Medical Lab',
+      'Spa',
     ],
   },
   {
@@ -88,6 +90,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'HIBIS Hotels & Resorts',
       'Visit Norway',
       'Flight Company',
+      'Safari',
     ],
   },
   {
@@ -119,6 +122,7 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Construction',
       'Aluminum & Glass',
       'Kitchen Studio',
+      'Water Purification',
     ],
   },
   {
@@ -130,6 +134,8 @@ const LANDING_CATEGORIES: { id: string; title: string; subtitle: string; titles:
       'Pest Control',
       'Dry Clean',
       'Appliance Repair',
+      'Cleaning',
+      'Plumbing',
     ],
   },
   {
@@ -1122,6 +1128,60 @@ export function PortfolioCarousel() {
       technologies: ["React", "Responsive Web Design"],
       description:
         "A travel and flights landing page showcasing destinations, fare search, travel packages, and booking calls to action.",
+    },
+
+    {
+      title: "Cleaning",
+      image: "/Projects/landingPages/cleaning.png",
+      liveDemo: "https://landing4-lyart.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A professional cleaning service landing page presenting service packages, residential and commercial options, pricing, and booking.",
+    },
+
+    {
+      title: "Slice Town",
+      image: "/Projects/landingPages/slice-town.png",
+      liveDemo: "https://landing4slicetown.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A pizzeria landing page showcasing signature pizzas, combo deals, catering options, location information, and online ordering.",
+    },
+
+    {
+      title: "Spa",
+      image: "/Projects/landingPages/spa.png",
+      liveDemo: "https://landing4-7kri.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A luxury spa landing page presenting wellness treatments, therapy packages, ambience, therapist profiles, and reservation booking.",
+    },
+
+    {
+      title: "Plumbing",
+      image: "/Projects/landingPages/plumbing.png",
+      liveDemo: "https://landing4plumbingservices.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A plumbing services landing page covering repairs, installations, emergency service, service areas, and instant quote requests.",
+    },
+
+    {
+      title: "Water Purification",
+      image: "/Projects/landingPages/water-purification.png",
+      liveDemo: "https://landing4waterpurification.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A water purification landing page highlighting filtration systems, health benefits, product packages, installation, and consultation.",
+    },
+
+    {
+      title: "Safari",
+      image: "/Projects/landingPages/safari.png",
+      liveDemo: "https://ssafari-yxtq.vercel.app/",
+      technologies: ["React", "Responsive Web Design"],
+      description:
+        "A safari tours landing page showcasing destinations, wildlife experiences, tour packages, itineraries, and booking inquiries.",
     },
   ], [])
 

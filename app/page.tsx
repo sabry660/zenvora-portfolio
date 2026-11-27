@@ -53,6 +53,14 @@ export default function Page() {
   const particlesActive = true
   const [hoveredNav, setHoveredNav] = useState<(typeof NAV_KEYS)[number] | null>(null)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+
+  // Lock body scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : ''
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [mobileMenuOpen])
   const { isInstallable, isInstalled, isIOS, install } = usePWAInstall()
   const [isMuted, setIsMuted] = useState(false)
   const [isPlaying, setIsPlaying] = useState(false)
@@ -65,6 +73,7 @@ export default function Page() {
   const hintRef = useRef<HTMLParagraphElement>(null)
   const heroRef = useRef<HTMLElement>(null)
   const siteRef = useRef<HTMLElement>(null)
+  const siteScaleRef = useRef<HTMLDivElement>(null)
   const servicesRef = useRef<HTMLDivElement>(null)
   const metricsRef = useRef<HTMLDivElement>(null)
   const industriesRef = useRef<HTMLDivElement>(null)
@@ -81,6 +90,7 @@ export default function Page() {
   // No GSAP displacement needed on mount — centering guaranteed by margin negative values, GSAP only does scale
   useEffect(() => {
     gsap.set(logoRef.current, { transformOrigin: '48.9% 40.4%' })
+    gsap.set(siteScaleRef.current, { scale: 0.965 })
   }, [])
 
   // Scroll linkage: readingLine detects current section, activeNav follows
@@ -213,7 +223,7 @@ export default function Page() {
 
     // Phase 2: homepage content emerges — balanced timing: appears when expansion nearly complete, not dragging
     tl.to(siteRef.current, { opacity: 1, duration: 2.0, ease: 'power2.out' }, 1.8)
-      .to(siteRef.current, { scale: 1, duration: 2.2, ease: 'power2.out' }, 1.8)
+      .to(siteScaleRef.current, { scale: 1, duration: 2.2, ease: 'power2.out' }, 1.8)
     tl.to(heroRef.current, { pointerEvents: 'none', duration: 0 }, 2.0)
     tl.to(siteRef.current, { pointerEvents: 'auto', duration: 0 }, 3.2)
     // Unlock scrolling after entry animation completes, second screen can then scroll
@@ -293,11 +303,82 @@ export default function Page() {
       <section
         ref={siteRef}
         className="pointer-events-none absolute inset-0 z-20 flex flex-col px-8 pt-4 pb-8 opacity-0"
-        style={{ scale: '0.965' }}
       >
-        {/* Top navigation — large logo + tagline + menu */}
-        <nav className="flex w-full items-center justify-between gap-4 sm:gap-6 px-4 sm:px-6 pt-0">
-          <span className="zenvora-logo h-16 w-16 sm:h-20 sm:w-20 text-white" role="img" aria-label="ZENVORA" />
+        {/* Hero section: left tagline — right code animation */}
+        <div
+          ref={siteScaleRef}
+          className="relative flex flex-1 flex-col items-center justify-center gap-6 origin-center sm:gap-8 lg:flex-row lg:gap-16"
+        >
+          {/* Left: brand tagline */}
+          <div
+            className="w-full max-w-md text-center lg:text-left lg:max-w-lg xl:max-w-xl"
+          >
+            <p className="text-[0.55rem] sm:text-[0.65rem] tracking-[0.3em] text-white/60 uppercase">{copy.heroTag}</p>
+            <h2
+              className="mt-2 sm:mt-3 font-black tracking-tight text-white text-[1.5rem] sm:text-[1.85rem] md:text-4xl xl:text-[2.75rem] leading-[1.08]"
+            >
+              {copy.heroTitle1}
+              <br />
+              <span className="text-[#c8e6d9]">{copy.heroTitle2}</span>
+            </h2>
+            <p
+              className="mt-3 sm:mt-4 font-medium uppercase tracking-[0.28em] text-[#c8e6d9] text-[0.5rem] sm:text-[0.6rem] leading-relaxed"
+            >
+              {copy.heroDesc1}
+              <br />
+              {copy.heroDesc2}
+            </p>
+
+            <div className="mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-3 lg:justify-start">
+              <button
+                onClick={() => {
+                  servicesRef.current?.scrollIntoView({ behavior: 'smooth' })
+                  window.location.hash = 'services'
+                }}
+                className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1e1f1f] transition hover:bg-white/90"
+              >
+                {copy.ctaPrimary}
+                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.2} />
+              </button>
+              <button
+                onClick={() => {
+                  const message = encodeURIComponent("Hello, I'm interested in your services. Let's discuss how we can work together.")
+                  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank')
+                }}
+                className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/30 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white/85 transition hover:border-white/60 hover:bg-white/5 hover:text-white"
+              >
+                {copy.ctaSecondary}
+              </button>
+            </div>
+          </div>
+
+          {/* Right: code animation */}
+          <div className="hidden md:block">
+            <HeroCodeAnimation />
+          </div>
+        </div>
+
+        {/* Bottom center: scroll down prompt arrow */}
+        <button
+          onClick={() => servicesRef.current?.scrollIntoView({ behavior: 'smooth' })}
+          className="pointer-events-auto absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer"
+          aria-label="Scroll to services"
+        >
+          <ChevronDown className="h-6 w-6 animate-bounce text-[#c8e6d9]" strokeWidth={2.2} />
+        </button>
+
+        {/* Bottom: copyright */}
+        <div className="flex items-center justify-end">
+          <span className="hidden text-[0.65rem] text-white/40 md:block">
+            © 2026 Zenvora Technologies. All rights reserved.
+          </span>
+        </div>
+      </section>
+      </div>
+
+        {/* Top navigation — compact fixed bar, solid site background */}
+        <nav className={`fixed inset-x-0 top-0 z-40 flex w-full items-center justify-between gap-4 bg-background px-4 py-3 transition-opacity duration-500 sm:gap-6 sm:px-6 ${entered ? 'opacity-100' : 'pointer-events-none opacity-0'}`}>
+          <span className="zenvora-logo h-12 w-12 text-white sm:h-14 sm:w-14" role="img" aria-label="ZENVORA" />
           <div className="flex items-center gap-4 sm:gap-8">
             {/* Hamburger menu button (mobile only) */}
             <button
@@ -442,7 +523,7 @@ export default function Page() {
 
         {/* Mobile menu overlay */}
         {mobileMenuOpen && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 backdrop-blur-sm md:hidden">
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black md:hidden">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
@@ -581,127 +662,59 @@ export default function Page() {
           </div>
         )}
 
-        {/* Hero section: left tagline — right code animation */}
-        <div className="relative flex flex-1 flex-col items-center justify-center gap-6 sm:gap-8 lg:flex-row lg:gap-16">
-          {/* Left: brand tagline */}
-          <div
-            className="w-full max-w-md text-center lg:text-left lg:max-w-lg xl:max-w-xl"
-          >
-            <p className="text-[0.55rem] sm:text-[0.65rem] tracking-[0.3em] text-white/60 uppercase">{copy.heroTag}</p>
-            <h2
-              className="mt-2 sm:mt-3 font-black tracking-tight text-white text-[1.5rem] sm:text-[1.85rem] md:text-4xl xl:text-[2.75rem] leading-[1.08]"
-            >
-              {copy.heroTitle1}
-              <br />
-              <span className="text-[#c8e6d9]">{copy.heroTitle2}</span>
-            </h2>
-            <p
-              className="mt-3 sm:mt-4 font-medium uppercase tracking-[0.28em] text-[#c8e6d9] text-[0.5rem] sm:text-[0.6rem] leading-relaxed"
-            >
-              {copy.heroDesc1}
-              <br />
-              {copy.heroDesc2}
-            </p>
-
-            <div className="mt-4 sm:mt-6 flex flex-wrap items-center justify-center gap-2 sm:gap-3 lg:justify-start">
-              <button
-                onClick={() => {
-                  servicesRef.current?.scrollIntoView({ behavior: 'smooth' })
-                  window.location.hash = 'services'
-                }}
-                className="group inline-flex cursor-pointer items-center gap-2 rounded-full bg-white px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-[#1e1f1f] transition hover:bg-white/90"
-              >
-                {copy.ctaPrimary}
-                <ArrowRight className="h-3.5 w-3.5 sm:h-4 sm:w-4 transition-transform duration-300 group-hover:translate-x-0.5" strokeWidth={2.2} />
-              </button>
-              <button
-                onClick={() => {
-                  const message = encodeURIComponent("Hello, I'm interested in your services. Let's discuss how we can work together.")
-                  window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=${message}`, '_blank')
-                }}
-                className="group inline-flex cursor-pointer items-center gap-2 rounded-full border border-white/30 px-4 sm:px-6 py-2 sm:py-2.5 text-xs sm:text-sm font-semibold text-white/85 transition hover:border-white/60 hover:bg-white/5 hover:text-white"
-              >
-                {copy.ctaSecondary}
-              </button>
-            </div>
-          </div>
-
-          {/* Right: code animation */}
-          <div className="hidden md:block">
-            <HeroCodeAnimation />
-          </div>
-        </div>
-
-        {/* Bottom center: scroll down prompt arrow */}
-        <button
-          onClick={() => servicesRef.current?.scrollIntoView({ behavior: 'smooth' })}
-          className="pointer-events-auto absolute bottom-8 left-1/2 -translate-x-1/2 cursor-pointer"
-          aria-label="Scroll to services"
-        >
-          <ChevronDown className="h-6 w-6 animate-bounce text-[#c8e6d9]" strokeWidth={2.2} />
-        </button>
-
-        {/* Bottom: copyright */}
-        <div className="flex items-center justify-end">
-          <span className="hidden text-[0.65rem] text-white/40 md:block">
-            © 2026 Zenvora Technologies. All rights reserved.
-          </span>
-        </div>
-      </section>
-      </div>
 
       {/* Services Section */}
-      <div ref={servicesRef} className="relative z-20">
+      <div ref={servicesRef} className="relative z-20 scroll-mt-24">
         <ServicesSection />
       </div>
 
       {/* Key Metrics Section */}
-      <div ref={metricsRef} className="relative z-20">
+      <div ref={metricsRef} className="relative z-20 scroll-mt-24">
         <MetricsSection />
       </div>
 
       {/* Industries Section */}
-      <div ref={industriesRef} className="relative z-20">
+      <div ref={industriesRef} className="relative z-20 scroll-mt-24">
         <IndustriesSection />
       </div>
 
       {/* Services & Packages */}
-      <div ref={packagesRef} className="relative z-20">
+      <div ref={packagesRef} className="relative z-20 scroll-mt-24">
         <PackagesSection />
       </div>
 
       {/* Portfolio Section */}
-      <div ref={portfolioRef} className="relative z-20">
+      <div ref={portfolioRef} className="relative z-20 scroll-mt-24">
         <PortfolioCarousel />
       </div>
 
       {/* Our Process Section */}
-      <div ref={processRef} className="relative z-20">
+      <div ref={processRef} className="relative z-20 scroll-mt-24">
         <ProcessSection />
       </div>
 
       {/* Security & Compliance Section */}
-      <div ref={securityRef} className="relative z-20">
+      <div ref={securityRef} className="relative z-20 scroll-mt-24">
         <SecuritySection />
       </div>
 
       {/* Tech Stack Section */}
-      <div ref={techStackRef} className="relative z-20">
+      <div ref={techStackRef} className="relative z-20 scroll-mt-24">
         <TechStackMarquee />
       </div>
 
       {/* Testimonials Section */}
-      <div ref={testimonialsRef} className="relative z-20">
+      <div ref={testimonialsRef} className="relative z-20 scroll-mt-24">
         <TestimonialsSlider />
       </div>
 
       {/* Our Team Section */}
-      <div ref={teamRef} className="relative z-20">
+      <div ref={teamRef} className="relative z-20 scroll-mt-24">
         <TeamCarousel />
       </div>
 
       {/* FAQ Section */}
-      <div ref={faqRef} className="relative z-20">
+      <div ref={faqRef} className="relative z-20 scroll-mt-24">
         <FAQSection />
       </div>
 
